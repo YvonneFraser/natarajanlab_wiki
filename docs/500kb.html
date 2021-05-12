@@ -11,7 +11,7 @@
 
 
 
-<title>Home</title>
+<title>500kbblock</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -267,6 +270,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -274,6 +340,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -317,7 +393,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">500kbblock</h1>
 
 </div>
 
@@ -345,7 +421,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-05-12
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>natarajanlab_wiki/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -366,7 +442,67 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20210512code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20210512)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20210512code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20210512)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -393,6 +529,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/500kb.R
+    Untracked:  analysis/500kb.Rmd
     Untracked:  analysis/popsscropts.Rmd
 
 Unstaged changes:
@@ -409,162 +546,113 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/cd28e0b9354a66c4f5348757b4bb1305e3ac9ba8/docs/index.html" target="_blank">cd28e0b</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/41905feaeb4f2c5b7409f444c092e8cbd9603ef5/analysis/index.Rmd" target="_blank">41905fe</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-wflow_publish(“~/natarajanlab_wiki/analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/2a5abe9b34d22cdb6c26257b67e5a9236eebe385/docs/index.html" target="_blank">2a5abe9</a>
-</td>
-<td>
-Sarah Urbut
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/e3d552adc5610563d37220eb56842bd475549a2e/docs/index.html" target="_blank">e3d552a</a>
-</td>
-<td>
-Sarah Urbut
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/d3cac8d4c9e6a0744d0610d578bdc78e84bcbaf3/analysis/index.Rmd" target="_blank">d3cac8d</a>
-</td>
-<td>
-Sarah Urbut
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-wflow_publish(“analysis/index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/36159483266b04180c48ac66fccb1dfacafc2155/docs/index.html" target="_blank">3615948</a>
-</td>
-<td>
-Sarah Urbut
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/27ea1b4c300a8dceab919e1134a7ad8ee67878ce/analysis/index.Rmd" target="_blank">27ea1b4</a>
-</td>
-<td>
-Sarah Urbut
-</td>
-<td>
-2021-05-12
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
-<p>Welcome! This is a repo to share the code that other members of the lab are working on.</p>
-<p>Click <a href="analysis/torus_metaplot.Rmd">here</a> for the code to torus_metaplot</p>
-<p>Click <a href="analysis/popsscropts.Rmd">here</a> for the code to PoPs</p>
-<p>Click <a href="analysis/500kb.Rmd">here</a> for the code to selecting by 500 kb blocks</p>
+<p>Here we show how to check if variants are within 500 kb of one antoher.</p>
+<pre class="r"><code>share=readRDS(&quot;~/Dropbox/combined_shared_lfsr_mvp_mash_chr_bp.rds&quot;)
+#share=readRDS(&quot;~/Dropbox/combined_shared_lfsr_ukbb_mash_chr_bp.rds&quot;)
+blocksize=500000
+disco=read.csv(&quot;~/Dropbox/all_disco.csv&quot;)
+d=(apply(disco,2,function(x){as.character(x)}))
+thresh=0.05
+s=str_split_fixed(d[,1],&quot;:&quot;,2)
+##just for hdl (d[,1])
+derek=data.frame(chr=paste0(&quot;chr&quot;,s[,1]),bp=as.numeric(s[,2]))
+###
+
+s=str_split_fixed(df2[,2],&quot;:&quot;,2)
+derek=data.frame(chr=paste0(&quot;chr&quot;,s[,1]),bp=as.numeric(s[,2]))
+
+
+
+for(j in 1:4){
+  #s=str_split_fixed(d[,j],&quot;:&quot;,2)
+  ##just for hdl (d[,1])
+  #derek=data.frame(chr=paste0(&quot;chr&quot;,s[,1]),bp=as.numeric(s[,2]))
+  
+  
+for(i in 0:21){
+  mat &lt;- data.frame(NULL,NULL,NULL)
+  #lfsr_mat &lt;- data.frame(NULL,NULL,NULL)
+  chr=paste0(&quot;chr&quot;,i+1)
+  df=share[share$chr==chr,]
+  df$bp=as.numeric(as.character(df$b))
+  start=min(df$bp) ### chromosomal boundaries
+  stop=max(df$bp) 
+  blocks=trunc((stop-start)/blocksize,2)
+  in_chrom=df[df$chr==chr,]
+  ordered_chrom=in_chrom[order(in_chrom$bp),] 
+  
+  derek_in_chrom=derek[derek$chr==chr,]
+  ordered_derek=derek_in_chrom[order(derek_in_chrom$bp),] 
+  ## return all elements of shared matrix in chromosome
+  print(blocks)
+  for(q in 0:blocks){
+    print(c(i,q))
+    pos_start=start+q*(blocksize+1)##starting position of the LD block
+    pos_stop=min(pos_start+blocksize,stop)
+    goodguys=ordered_chrom[ordered_chrom$bp&gt;(pos_start-1)&amp;ordered_chrom$bp&lt;(pos_stop+1),]
+    good_derek=ordered_derek[ordered_derek$bp&gt;(pos_start-1)&amp;ordered_derek$bp&lt;(pos_stop+1),]
+    row_ind=q+1
+    mat[row_ind,1]=paste0(chr,&quot;:&quot;,pos_start)
+    mat[row_ind,2]=paste0(chr,&quot;:&quot;,pos_stop)
+    if(nrow(goodguys)==0){mat[row_ind,3]=0}
+    if(nrow(goodguys)&gt;0){
+      #thresh_sat=goodguys[,c(3:6)]&lt;0.05
+      #for(j in 1:4){
+        #if(colSums(thresh_sat)[j]&gt;0){
+        #mat[row_ind,3]=min(goodguys[,3])&lt;thresh
+        mat[row_ind,3]=dim(good_derek)[1]&gt;0
+      #}
+    }
+  }
+  
+  #saveRDS(mat,paste0(&quot;~/Dropbox/&quot;,chr,&quot;hdl_min_per_block_mvp_TF.rds&quot;))
+  #saveRDS(mat,paste0(&quot;~/Dropbox/&quot;,chr,colnames(share)[j+2],&quot;min_per_block_derek.rds&quot;))
+  saveRDS(mat,paste0(&quot;~/Dropbox/&quot;,chr,&quot;min_per_block_cad.rds&quot;))
+}
+  
+  }</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS  10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] workflowr_1.6.2
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.5      rstudioapi_0.13 knitr_1.30      magrittr_2.0.1 
+ [5] R6_2.5.0        rlang_0.4.9     stringr_1.4.0   tools_4.0.2    
+ [9] xfun_0.18       git2r_0.27.1    htmltools_0.5.0 ellipsis_0.3.1 
+[13] rprojroot_2.0.2 yaml_2.2.1      digest_0.6.27   tibble_3.0.4   
+[17] lifecycle_0.2.0 crayon_1.3.4    later_1.1.0.1   vctrs_0.3.5    
+[21] promises_1.1.1  fs_1.5.0        glue_1.4.2      evaluate_0.14  
+[25] rmarkdown_2.4   stringi_1.5.3   compiler_4.0.2  pillar_1.4.7   
+[29] httpuv_1.5.4    pkgconfig_2.0.3</code></pre>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -580,6 +668,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+</div>
+</div>
 
 </div>
 
@@ -612,6 +702,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

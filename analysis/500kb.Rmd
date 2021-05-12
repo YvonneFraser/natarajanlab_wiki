@@ -1,0 +1,81 @@
+---
+title: "500kbblock"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Here we show how to check if variants are within 500 kb of one antoher.
+
+
+```{r eval=F}
+share=readRDS("~/Dropbox/combined_shared_lfsr_mvp_mash_chr_bp.rds")
+#share=readRDS("~/Dropbox/combined_shared_lfsr_ukbb_mash_chr_bp.rds")
+blocksize=500000
+disco=read.csv("~/Dropbox/all_disco.csv")
+d=(apply(disco,2,function(x){as.character(x)}))
+thresh=0.05
+s=str_split_fixed(d[,1],":",2)
+##just for hdl (d[,1])
+derek=data.frame(chr=paste0("chr",s[,1]),bp=as.numeric(s[,2]))
+###
+
+s=str_split_fixed(df2[,2],":",2)
+derek=data.frame(chr=paste0("chr",s[,1]),bp=as.numeric(s[,2]))
+
+
+
+for(j in 1:4){
+  #s=str_split_fixed(d[,j],":",2)
+  ##just for hdl (d[,1])
+  #derek=data.frame(chr=paste0("chr",s[,1]),bp=as.numeric(s[,2]))
+  
+  
+for(i in 0:21){
+  mat <- data.frame(NULL,NULL,NULL)
+  #lfsr_mat <- data.frame(NULL,NULL,NULL)
+  chr=paste0("chr",i+1)
+  df=share[share$chr==chr,]
+  df$bp=as.numeric(as.character(df$b))
+  start=min(df$bp) ### chromosomal boundaries
+  stop=max(df$bp) 
+  blocks=trunc((stop-start)/blocksize,2)
+  in_chrom=df[df$chr==chr,]
+  ordered_chrom=in_chrom[order(in_chrom$bp),] 
+  
+  derek_in_chrom=derek[derek$chr==chr,]
+  ordered_derek=derek_in_chrom[order(derek_in_chrom$bp),] 
+  ## return all elements of shared matrix in chromosome
+  print(blocks)
+  for(q in 0:blocks){
+    print(c(i,q))
+    pos_start=start+q*(blocksize+1)##starting position of the LD block
+    pos_stop=min(pos_start+blocksize,stop)
+    goodguys=ordered_chrom[ordered_chrom$bp>(pos_start-1)&ordered_chrom$bp<(pos_stop+1),]
+    good_derek=ordered_derek[ordered_derek$bp>(pos_start-1)&ordered_derek$bp<(pos_stop+1),]
+    row_ind=q+1
+    mat[row_ind,1]=paste0(chr,":",pos_start)
+    mat[row_ind,2]=paste0(chr,":",pos_stop)
+    if(nrow(goodguys)==0){mat[row_ind,3]=0}
+    if(nrow(goodguys)>0){
+      #thresh_sat=goodguys[,c(3:6)]<0.05
+      #for(j in 1:4){
+        #if(colSums(thresh_sat)[j]>0){
+        #mat[row_ind,3]=min(goodguys[,3])<thresh
+        mat[row_ind,3]=dim(good_derek)[1]>0
+      #}
+    }
+  }
+  
+  #saveRDS(mat,paste0("~/Dropbox/",chr,"hdl_min_per_block_mvp_TF.rds"))
+  #saveRDS(mat,paste0("~/Dropbox/",chr,colnames(share)[j+2],"min_per_block_derek.rds"))
+  saveRDS(mat,paste0("~/Dropbox/",chr,"min_per_block_cad.rds"))
+}
+  
+  }
+
+
+```

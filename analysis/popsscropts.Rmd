@@ -1,0 +1,94 @@
+---
+title: "PoPs"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Here I show how to run Pops.
+First magma
+Then features
+Then combine 
+
+```{r eval=F}
+
+../../../../SarahUrbut/magma \
+  --bfile 1000G.EUR \
+	--gene-annot magma_0kb.genes.annot \
+	--pval ldl_lfsr.txt ncol=N \
+	--gene-model snp-wise=mean \
+	--out LDL
+
+
+use Anaconda3
+python /medpop/esp2/SarahUrbut/pops/pops.feature_selection.py \
+	--features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/PoPS.features.txt.gz \
+	--gene_results /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/LDL \
+	--out LDL
+
+### TG
+
+/medpop/esp2/SarahUrbut/magma \
+  --bfile /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/1000G.EUR \
+	--gene-annot /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/magma_0kb.genes.annot \
+	--pval /medpop/esp2/SarahUrbut/tg_lfsr.txt ncol=N \
+	--gene-model snp-wise=mean \
+	--out TG
+
+
+
+# Use your dotkit
+reuse Anaconda3
+
+
+##################
+### Run script ###
+##################
+python /medpop/esp2/SarahUrbut/pops/pops.feature_selection.py \
+--features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/PoPS.features.txt.gz \
+--gene_results /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/TG \
+--out TG
+
+for i in $(seq 1 22 )
+do
+
+python /medpop/esp2/SarahUrbut/pops/pops.predict_scores.py \
+--gene_loc /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/gene_loc.txt \
+--features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/PoPS.features.txt.gz \
+--gene_results /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/TG \
+--selected_features ~/TG.features \
+--control_features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/control.features \
+--chromosome $i \
+--out /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/TG
+
+done
+
+
+
+
+##################
+### Run script ###
+##################
+python /medpop/esp2/SarahUrbut/pops/pops.feature_selection.py \
+--features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/PoPS.features.txt.gz \
+--gene_results /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/z_pops/HDL \
+--out HDL
+
+for i in $(seq 1 22 )
+do
+
+python /medpop/esp2/SarahUrbut/pops/pops.predict_scores.py \
+--gene_loc /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/gene_loc.txt \
+--features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/PoPS.features.txt.gz \
+--gene_results /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/z_pops/HDL \
+--selected_features ./HDL.features \
+--control_features /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/control.features \
+--chromosome $i \
+--out /medpop/esp2/akhil/topmed/lipid_mashr/post_betas/z_pops/HDL
+
+done
+```
