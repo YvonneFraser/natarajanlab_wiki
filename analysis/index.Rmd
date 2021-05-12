@@ -10,6 +10,6 @@ editor_options:
 
 Welcome! This is a repo to share the code that other members of the lab are working on. 
 
-
+Click [here](analysis/torus_metaplot.Rmd) for the code to torus_metaplot
 
 
