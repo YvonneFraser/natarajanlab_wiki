@@ -324,7 +324,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -333,7 +333,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -345,7 +345,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-05-12
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>natarajanlab_wiki/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -361,28 +361,28 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsurbutnatarajanlabwikitree3f30c15292add1acb661021dbd32409c93cfd0f5targetblank3f30c15a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/surbut/natarajanlab_wiki/tree/3f30c15292add1acb661021dbd32409c93cfd0f5" target="_blank">3f30c15</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsurbutnatarajanlabwikitreecebfba5b3b9294cee009fbe1826a0986ee2cac49targetblankcebfba5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/surbut/natarajanlab_wiki/tree/cebfba5b3b9294cee009fbe1826a0986ee2cac49" target="_blank">cebfba5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsurbutnatarajanlabwikitree3f30c15292add1acb661021dbd32409c93cfd0f5targetblank3f30c15a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsurbutnatarajanlabwikitreecebfba5b3b9294cee009fbe1826a0986ee2cac49targetblankcebfba5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/surbut/natarajanlab_wiki/tree/3f30c15292add1acb661021dbd32409c93cfd0f5" target="_blank">3f30c15</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/surbut/natarajanlab_wiki/tree/cebfba5b3b9294cee009fbe1826a0986ee2cac49" target="_blank">cebfba5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -390,9 +390,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
-
-Unstaged changes:
-    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -431,6 +428,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/surbut/natarajanlab_wiki/blob/cebfba5b3b9294cee009fbe1826a0986ee2cac49/analysis/index.Rmd" target="_blank">cebfba5</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-05-12
+</td>
+<td>
+wflow_publish(“analysis/index.rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/surbut/natarajanlab_wiki/blob/47f49129f09c14400faea99108c055b4c8c1bbfc/analysis/index.Rmd" target="_blank">47f4912</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-05-12
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/47f49129f09c14400faea99108c055b4c8c1bbfc/docs/index.html" target="_blank">47f4912</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-05-12
+</td>
+<td>
+Update
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -591,10 +639,11 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome! This is a repo to share the code that other members of the lab are working on.</p>
+<p>Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful.</p>
 <p>Click <a href="analysis/torus_metaplot.Rmd">here</a> for the code to torus_metaplot</p>
 <p>Click <a href="analysis/popsscropts.Rmd">here</a> for the code to PoPs</p>
 <p>Click <a href="analysis/500kb.Rmd">here</a> for the code to selecting by 500 kb blocks</p>
+<p>I love these <a href="https://stephens999.github.io/fiveMinuteStats/">5 Minute Stats</a> lessons to illustrate key concepts.</p>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
