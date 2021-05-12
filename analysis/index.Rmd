@@ -8,12 +8,14 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome! This is a repo to share the code that other members of the lab are working on. 
+Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful.
 
 Click [here](analysis/torus_metaplot.Rmd) for the code to torus_metaplot
 
 Click [here](analysis/popsscropts.Rmd) for the code to PoPs
 
 Click [here](analysis/500kb.Rmd) for the code to selecting by 500 kb blocks
+
+I love these [5 Minute Stats](https://stephens999.github.io/fiveMinuteStats/) lessons to illustrate key concepts.
 
 
