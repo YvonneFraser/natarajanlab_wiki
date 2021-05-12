@@ -1,0 +1,114 @@
+---
+title: "enrich_meta"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+
+mash.hdl=read.csv(("~/Downloads/mvp_enrichment_torus/mash/hdl.zscore.torus.merged.csv"))
+mash.ldl=read.csv(("~/Downloads/mvp_enrichment_torus/mash/ldl.zscore.torus.merged.csv"))
+
+mash.tg=read.csv(("~/Downloads/mvp_enrichment_torus/mash/tg.zscore.torus.merged.csv"))
+
+mash.tc=read.csv(("~/Downloads/mvp_enrichment_torus/mash/tc.zscore.torus.merged.csv"))
+
+a=merge(mash.hdl[,c(1,2,3,4)],mash.ldl[,c(1,2,3,4)],by.x  ="annotation",by.y="annotation") 
+
+b=merge(a,mash.tg[,c(1,2,3,4)],by.x  ="annotation",by.y="annotation") 
+
+c=merge(b,mash.tc[,c(1,2,3,4)],by.x  ="annotation",by.y="annotation") 
+
+
+
+###Orignal
+
+
+raw.hdl=read.csv(("~/Downloads/mvp_enrichment_torus/original//original_z_mvp.hdl.zscore.torus.merged.csv"))
+raw.ldl=read.csv(("~/Downloads/mvp_enrichment_torus/original/original_z_mvp.ldl.zscore.torus.merged.csv"))
+
+raw.tg=read.csv(("~/Downloads/mvp_enrichment_torus/original/original_z_mvp.tc.zscore.torus.merged.csv"))
+
+raw.tc=read.csv(("~/Downloads/mvp_enrichment_torus/original/original_z_mvp.tg.zscore.torus.merged.csv"))
+
+a2=merge(raw.hdl[,c(1,2,3,4)],raw.ldl[,c(1,2,3,4)],by.x  ="annotation",by.y="annotation") 
+
+b2=merge(a2,raw.tg[,c(1,2,3,4)],by.x  ="annotation",by.y="annotation") 
+
+c2=merge(b2,raw.tc[,c(1,2,3,4)],by.x  ="annotation",by.y="annotation") 
+
+library("meta")
+c=c[-c(7,8,9,14),]
+c2=c2[-c(7,8,9,14),]
+rownames(c)=rownames(c2)=c[,1]
+
+par(mfrow=c(1,2))
+forest(c[,2], ci.lb = c[,3],ci.ub = c[,4],refline=0, cex=.9,slab = rownames(c),main="Mash_zstat_HDL",xlab="log_Fold_Enrichment")
+forest(c2[,2], ci.lb = c2[,3],ci.ub = c2[,4],refline=0, cex=.9,slab = rownames(c),main="Original_z_stat_HDL",xlab="log_Fold_Enrichment")
+
+
+
+par(mfrow=c(1,2))
+forest(c[,5], ci.lb = c[,6],ci.ub = c[,7],refline=0, cex=.9,slab = rownames(c),main="Mash_zstat_LDL",xlab="log_Fold_Enrichment")
+forest(c2[,5], ci.lb = c2[,6],ci.ub = c2[,7],refline=0, cex=.9,slab = rownames(c),main="Original_z_stat_LDL",xlab="log_Fold_Enrichment")
+
+
+par(mfrow=c(1,2))
+forest(c[,8], ci.lb = c[,9],ci.ub = c[,10],refline=0, cex=.9,slab = rownames(c),main="Mash_zstat_TG",xlab="log_Fold_Enrichment")
+forest(c2[,8], ci.lb = c2[,9],ci.ub = c2[,10],refline=0, cex=.9,slab = rownames(c),main="Original_z_stat_TG",xlab="log_Fold_Enrichment")
+
+
+library(gplots)
+library(ggplot2)
+error.bar <- function(x, y, upper, lower=upper, length=0.1,...){
+   if(length(x) != length(y) | length(y) !=length(lower) | length(lower) != length(upper))
+   stop("vectors must be same length")
+   arrows(x,y+upper, x, y-lower, angle=90, code=3, length=length, ...)
+}
+
+
+missing.tissues=c(7,8,19,20,24,25,31,34,37)
+uk3labels=read.table("../Analysis/uk3rowindices.txt")[,1]
+
+newfunc.2=function(j){
+gtex.colors=read.table('../Data/GTExColors.txt', sep = '\t', comment.char = '')[-missing.tissues,2]
+gtex.colors=gtex.colors[uk3labels]
+pm.beta.norm=pm.beta.norm[,uk3labels]##shufflecolumns
+z.shuffle=z.stat[,uk3labels]
+b.shuffle=b.stat[,uk3labels]
+post.var=mar.var[uk3labels]
+post.bshuffle=posterior.betas[,uk3labels]
+sem.shuffle=standard.error[,uk3labels]
+lfsr=lfsr[,uk3labels]
+title=strsplit(rownames(z.stat)[j], "[.]")[[1]][1]
+
+
+
+barplot(as.numeric(z.shuffle[j,]),col = as.character(gtex.colors),las=2,main=title,ylim= c(-2,11),names="")
+
+x=as.numeric(post.bshuffle[j,])
+bp <- barplot(x, ylim = c(-0.6, 0.6), col = as.character(gtex.colors),las=2,main=title,names="")
+text(bp, x, 
+  labels = symnum(as.numeric(lfsr[j,]), cutpoints = c(0, 0.05, 1),   symbols = c(".", "")), pos = 3)
+
+par(mfrow=c(1,1))
+metaplot(as.numeric(b.shuffle[j,]),as.numeric(sem.shuffle[j,]),xlab = "",ylab="",colors=meta.colors(box=as.character(gtex.colors)),xlim=c(-1,1))
+title(title)
+
+par(mfrow=c(1,1))
+sd=as.numeric(sem.shuffle[j,])*sqrt(as.numeric(post.var[j,]))##to transform to posterior sd of beta
+metaplot(x,sd,xlab = "",ylab="",colors=meta.colors(box=as.character(gtex.colors)),xlim=c(-1,1))
+title(title)
+}
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
