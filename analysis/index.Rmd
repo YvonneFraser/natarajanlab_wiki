@@ -10,7 +10,7 @@ editor_options:
 
 Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful.
 
-Click [here](orus_metaplot.html) for the code to torus_metaplot
+Click [here](torus_metaplot.html) for the code to torus_metaplot
 
 Click [here](popsscropts.html) for the code to PoPs
 
