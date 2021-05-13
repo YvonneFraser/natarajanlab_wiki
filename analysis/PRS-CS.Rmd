@@ -1,0 +1,100 @@
+---
+title: "PRS-CS"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here is a sample document of how to run PRS-CS
+
+```{r pressure, eval=FALSE}
+rm(list=ls())
+library(EBPRS)
+library(data.table)
+
+for(phi in c(1,1e-2,1e-4,1e-6)){
+  ldpath <- '/home/urbut/summerResearch/PRScs/0802_risk/ldblk_1kg_eur'  ### can be downloaded directly
+  summs <- fread( trainpath)
+  summ1 <- summs[,c(2,3,4,6,7)]
+  colnames(summ1) <- c('SNP','A1','A2','OR','P') ### gwas summary stats format
+  summ1 <- summ1[!is.na(summ1$OR),]
+  write.table(summ1,'summs.txt',quote=F,row.names=F,col.names=T)
+  
+  #s=Sys.time()
+  system(paste0('/usr/bin/python2 /home/urbut/summerResearch/PRScs/PRScs/PRScs.py --ref_dir=',ldpath,
+                ' --bim_prefix=',bimpath,' --phi=',phi,' --sst_file=summs.txt  --n_gwas=',N1+N0,' --out_dir=./'))
+}
+
+
+
+## validation
+
+bedNA <- function(bed1){
+  for(j in 1:ncol(bed1)){
+    temp <- bed1[,j]
+    temp[is.na(temp)] <- mean(temp,na.rm=T)
+    bed1[,j] <- temp
+    #print(j)
+  }
+  return(bed1)
+}
+agtc <- function(a1,a2,b1,b2){
+  sig <- rep(1,length(a1))
+  for(i in 1:length(a1)){
+    if((is.na(a1[i]))||(is.na(a2[i]))||(is.na(b1[i]))||(is.na(b2[i]))){
+      sig[i] <- 0
+    }
+    else if((a1[i]==b1[i])&(a2[i]==b2[i])){
+      sig[i] <- 1
+    }else if((a1[i]==b2[i])&(a2[i]==b1[i])){
+      sig[i] <- -1
+    }
+    else{
+      if(b1[i]=="A"){temp1 <- "T"}
+      if(b1[i]=="T"){temp1 <- "A"}
+      if(b1[i]=="G"){temp1 <- "C"}
+      if(b1[i]=="C"){temp1 <- "G"}
+      if(b2[i]=="A"){temp2 <- "T"}
+      if(b2[i]=="T"){temp2 <- "A"}
+      if(b2[i]=="G"){temp2 <- "C"}
+      if(b2[i]=="C"){temp2 <- "G"}
+      if((a1[i]==temp1)&(a2[i]==temp2)){
+        sig[i] <- 1
+      }else if((a1[i]==temp2)&(a2[i]==temp1)){
+        sig[i] <- -1
+      }else{ sig[i] <- 0}
+    }
+    # if(i %% 10000==0){
+    #   print(i)
+    # }
+  }
+  #cat(length(sig)," variants in total. \n")
+  #cat("Skip ", length(which(sig==0)), " variants due to allele code mismatch. \n")
+  return(sig)
+}
+phi00 <- c('auto','1e+00','1e-01','1e-04','1e-06')
+
+
+for(l in 1:5){
+  testpath <- paste0('test')
+  library(data.table)
+  library(EBPRS)
+  
+  test <- read_plink(testpath)
+  res <- list()
+  phi <- phi00[l]
+  eff <- fread(paste0("./prscs/_pst_eff_a1_b0.5_phi",phi,"_chr",chr,".txt"))
+  bim <- data.frame(test$bim,index=1:dim(test$bim)[1])
+  bim1 <- merge(bim,eff,by="V2")
+  sign <- agtc(bim1$V5.x,bim1$V6.x,bim1$V4.y,bim1$V5.y)
+  bed <- bedNA(test$bed[,bim1$index])
+  sc <- scale(bed)%*%(bim1$V6.y*sign)
+  r2 <- validate(test$fam[,6],sc)$r2
+  auc <- validate(test$fam[,6],sc)$AUC
+}
+setwd(paste0('./prscs/'))
+save(r2,auc,file=paste0('res_phi_',phi,'.RData')) 
+```
+

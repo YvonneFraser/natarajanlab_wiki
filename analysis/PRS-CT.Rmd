@@ -1,0 +1,194 @@
+---
+title: "PRS C+T"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Here's how to compute a PRS with clumping and thresholidng.
+
+
+```{r, eval=FALSE}
+###### 1. generate prs
+for(trait in c('hdl','ldl','tg','tc')){
+  path <- paste0('/home/songs/jun/sarah_dat/0430new_hm3/',trait,'/')
+  dir.create(path)
+  setwd(path)
+  library(data.table)
+  
+  for(chr in 1:22){
+    if(chr==1){
+      freq <- fread(paste0('/home/songs/UKB_data_qc2/ukb_imp_hm3_qc/chr',chr,'.frq'))
+    }else{
+      freq <- rbind(freq,fread(paste0('/home/songs/UKB_data_qc2/ukb_imp_hm3_qc/chr',chr,'.frq')))
+    }
+  }
+  freq$snp=paste0(freq$CHR,':',freq$SNP)
+  freq <- freq[freq$MAF>=0.05,]
+  #############
+  dir.create('./raw')
+  dir.create('./mash')
+  
+  mash <- fread(paste0('/home/songs/jun/sarah_dat/clean/mash/summs_',trait,'.txt')) ## summary statistics
+  raw <- fread(paste0('/home/songs/jun/sarah_dat/clean/raw/summs_',trait,'.txt'))
+  mash$snp <- paste0(mash$CHR,':',mash$SNP)
+  raw$snp <- paste0(raw$CHR,':',raw$SNP)
+  
+  mash1 <- merge(mash,freq,by='SNP')
+  raw1 <- merge(raw,freq,by='SNP')
+  dat <- mash1
+  dat$sd <- sqrt(2*dat$MAF*(1-dat$MAF))
+  dat$beta.new <- dat$Z/dat$sd
+  mash2 <- dat
+  
+  dat <- raw1
+  dat$sd <- sqrt(2*dat$MAF*(1-dat$MAF))
+  dat$beta.new <- dat$Z/dat$sd  ## because I use plink to calculate scores, and they do not standardize genotypes
+  raw2 <- dat
+  
+  #### clump
+  ## mash
+  summ <- mash2
+  clump_p <- data.frame(SNP=summ$SNP,P=summ$P)
+  colnames(clump_p) <- c("SNP","P")
+  write.table(clump_p,"./mash/clump_p.txt",quote=F,row.names = F,col.names = T)
+  system(paste0('/home/songs/plink1.9/plink --bfile /home/songs/summerResearch/main/reference_1KG/mynewdata_qc --clump ./mash/clump_p.txt    --clump-p1 1 --clump-p2 1 --clump-r2 0.1 --clump-kb 250 --out ./mash/clump_0.1_p --noweb'))
+  clumped_p <- read.table("./mash/clump_0.1_p.clumped",head=T)
+  cl_p <- clumped_p[,c(3,5)]
+  rm(clumped_p )
+  summ$order <- 1:nrow(summ)
+  mash2 <- merge(summ,cl_p,by="SNP")
+  ## raw
+  summ <- raw2
+  clump_p <- data.frame(SNP=summ$SNP,P=summ$P)
+  colnames(clump_p) <- c("SNP","P")
+  write.table(clump_p,"./raw/clump_p.txt",quote=F,row.names = F,col.names = T)
+  system(paste0('/home/songs/plink1.9/plink --bfile /home/songs/summerResearch/main/reference_1KG/mynewdata_qc --clump ./raw/clump_p.txt    --clump-p1 1 --clump-p2 1 --clump-r2 0.1 --clump-kb 250 --out ./raw/clump_0.1_p --noweb'))
+  clumped_p <- read.table("./raw/clump_0.1_p.clumped",head=T)
+  cl_p <- clumped_p[,c(3,5)]
+  rm(clumped_p )
+  summ$order <- 1:nrow(summ)
+  raw2 <- merge(summ,cl_p,by="SNP")
+  
+  
+  ### write .raw files and use plink to calculate scores!
+  ### mash
+  mash <- mash2[,c('SNP','A1.x','beta.new')]
+  for(j in 0:6){
+    ind <- which(mash2$P.x<(5*10^(-j)))
+    chr <- table(mash2$CHR.x[ind])
+    
+    write.table(mash[ind,],paste0('./mash/summs_',j,'.raw'),
+                quote=F,row.names=F,col.names=F)
+    save(chr,file=paste0('./mash/nsnp_',j,'.RData'))
+    
+    print(length(ind))
+  }
+  ### raw
+  raw <- raw2[,c('SNP','A1.x','beta.new')]
+  for(j in 0:6){
+    ind <- which(raw2$P<(5*10^(-j)))
+    chr <- table(raw2$CHR.x[ind])
+    temp <- raw[ind,]
+    write.table(temp,paste0('./raw/summs_',j,'.raw'),
+                quote=F,row.names=F,col.names=F)
+    save(chr,file=paste0('./raw/nsnp_',j,'.RData'))
+    print(length(ind))
+  }
+  
+  get.sc <- function(chr,type='mash',j){
+    dir.create(paste0(path,type,'/sc',j))
+    system(paste0('/home/songs/plink1.9/plink --bfile /home/songs/UKB_data_qc2/ukb_imp_hm3_qc/chr',chr,
+                  ' --score ',path,type,
+                  '/summs_',j,'.raw --out ',path,type,
+                  '/sc',j,'/chr',chr))
+  }
+  library(parallel)
+  for(j in 6:0){
+    mclapply(1:22,get.sc,type='raw',j=j,mc.cores=22)
+  }
+  for(j in 6:0){
+    mclapply(1:22,get.sc,type='mash',j=j,mc.cores=22)
+  }
+}
+
+
+###### 2. validate  prs
+### aggregate
+library(data.table)
+get.sum <- function(trait,type='mash',j){
+  path <- paste0('/home/songs/jun/sarah_dat/0430new_hm3/',trait,'/')
+  load(paste0(path,type,'/nsnp_',j,'.RData'))
+  nsnp <- data.frame(chr)
+  dd <- 0
+  for(k in 1:nrow(nsnp)){
+    chr <- nsnp$Var1[k]
+    n <- nsnp$Freq[k]
+    
+    if(dd == 0){
+      sc <- fread(paste0(path,type,'/sc',j,
+                         '/chr',chr,'.profile'))
+      SCORE.new <- sc$SCORE*n*2
+      dd <- dd+1
+    }else{
+      sc1 <- fread(paste0(path,type,'/sc',j,
+                          '/chr',chr,'.profile'))
+      if(length(which(sc1$IID!=sc$IID))>0){
+        print(chr)
+      }else if(sc1$SCORE[1]==Inf){
+        print('inf')
+        print(chr)
+      }else{
+        SCORE.new <- SCORE.new+sc1$SCORE*n*2
+        #print(sc1[102,])
+        print(n)
+      }
+    }
+  }
+  sc2 <- sc[,c(1,2,6)]
+  sc2$SCORE <- SCORE.new
+  return(sc2)
+}
+
+a <- fread('/home/songs/UKB_Case_datasets/phenotype/ukbb_traits.txt')
+set1 <- which(!is.na(a$hdl))
+set2 <- which(!is.na(a$ldl))
+set3 <- which(!is.na(a$tc))
+set4 <- which(!is.na(a$tg))
+set <- intersect(set1,set2)
+set <- intersect(set,set3)
+set <- intersect(set,set4)
+
+pheno <- a[set,]
+covar <- fread('/home/songs/UKB_data_qc2/covaraites/ukbb_covariates.txt')
+
+r2.mash <- r2.mash.cov <- c()
+for(j in 0:6){
+  ww=get.sum('hdl','mash',j)
+  res <- merge(pheno,ww,by.x='sid',by.y='IID')
+  r2.mash[j+1] <- cor(res$hdl,res$SCORE)^2
+  res1 <- merge(res,covar,by.x='sid',by.y='ID_2')
+  r2.mash.cov[j+1] <-  summary(lm(hdl~SCORE+sex+age+pc1+pc2+pc3+pc4,dat=res1))$r.squared
+  # summary(lm(tg~SCORE,dat=res1))
+  
+}
+
+r2.raw <- r2.raw.cov <-c()
+for(j in 0:6){
+  ww=get.sum('hdl','raw',j)
+  res <- merge(pheno,ww,by.x='sid',by.y='IID')
+  r2.raw[j+1] <- cor(res$hdl,res$SCORE)^2
+  res1 <- merge(res,covar,by.x='sid',by.y='ID_2')
+  r2.raw.cov[j+1] <-  summary(lm(hdl~SCORE+sex+age+pc1+pc2+pc3+pc4,dat=res1))$r.squared
+}
+max(r2.mash)
+max(r2.raw)
+max(r2.mash.cov)
+max(r2.raw.cov)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

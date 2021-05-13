@@ -16,6 +16,11 @@ Click [here](popsscropts.html) for the code to PoPs
 
 Click [here](500kb.html) for the code to selecting by 500 kb blocks
 
+Click [here](PRS-CT.html) for sample code to run PRS-CS
+
+Click [here](PRS-CS.html) for sample code to run PRS-CT
+
+
 I love these [5 Minute Stats](https://stephens999.github.io/fiveMinuteStats/) lessons to illustrate key concepts.
 
 
