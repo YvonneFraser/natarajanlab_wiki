@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful.
+Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful. If you have a script you think might be useful to have on the site, please let me know via github or email and will push!
 
 Click [here](torus_metaplot.html) for the code to torus_metaplot
 
