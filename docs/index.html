@@ -324,7 +324,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -333,7 +333,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -342,10 +342,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-05-13
+<strong>Last updated:</strong> 2021-05-14
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>natarajanlab_wiki/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -361,28 +361,28 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsurbutnatarajanlabwikitree284c5f609ffc856f95ae005a5b481c2481b5105ctargetblank284c5f6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/surbut/natarajanlab_wiki/tree/284c5f609ffc856f95ae005a5b481c2481b5105c" target="_blank">284c5f6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreea1e1336c7834743faf3073d6d2b9844e7218c7fftargetblanka1e1336a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/a1e1336c7834743faf3073d6d2b9844e7218c7ff" target="_blank">a1e1336</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsurbutnatarajanlabwikitree284c5f609ffc856f95ae005a5b481c2481b5105ctargetblank284c5f6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreea1e1336c7834743faf3073d6d2b9844e7218c7fftargetblanka1e1336a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/surbut/natarajanlab_wiki/tree/284c5f609ffc856f95ae005a5b481c2481b5105c" target="_blank">284c5f6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/a1e1336c7834743faf3073d6d2b9844e7218c7ff" target="_blank">a1e1336</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -390,14 +390,6 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
-    Ignored:    analysis/.DS_Store
-
-Unstaged changes:
-    Modified:   analysis/index.Rmd
-
-Staged changes:
-    New:        analysis/PRS-CS.Rmd
-    New:        analysis/PRS-CT.Rmd
 
 </code></pre>
 <p>
@@ -438,10 +430,61 @@ Message
 <tbody>
 <tr>
 <td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/a1e1336c7834743faf3073d6d2b9844e7218c7ff/analysis/index.Rmd" target="_blank">a1e1336</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-05-14
+</td>
+<td>
+wflow_publish("analysis/*.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/f8dbdc0073da4d1b31c8ae2a9f744f03a81a10fd/analysis/index.Rmd" target="_blank">f8dbdc0</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-05-13
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/284c5f609ffc856f95ae005a5b481c2481b5105c/docs/index.html" target="_blank">284c5f6</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/f8dbdc0073da4d1b31c8ae2a9f744f03a81a10fd/docs/index.html" target="_blank">f8dbdc0</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-05-13
+</td>
+<td>
+Update
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/284c5f609ffc856f95ae005a5b481c2481b5105c/docs/index.html" target="_blank">284c5f6</a>
 </td>
 <td>
 Your Name
@@ -458,7 +501,7 @@ Build site.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/4af313a01dde9bf305e45735c0fa4bd1fe70bd40/docs/index.html" target="_blank">4af313a</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/4af313a01dde9bf305e45735c0fa4bd1fe70bd40/docs/index.html" target="_blank">4af313a</a>
 </td>
 <td>
 Your Name
@@ -475,7 +518,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/d02ebab2b17c45f254fac4c383b987008c57a18e/analysis/index.Rmd" target="_blank">d02ebab</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/d02ebab2b17c45f254fac4c383b987008c57a18e/analysis/index.Rmd" target="_blank">d02ebab</a>
 </td>
 <td>
 Your Name
@@ -492,7 +535,7 @@ Update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/d02ebab2b17c45f254fac4c383b987008c57a18e/docs/index.html" target="_blank">d02ebab</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/d02ebab2b17c45f254fac4c383b987008c57a18e/docs/index.html" target="_blank">d02ebab</a>
 </td>
 <td>
 Your Name
@@ -509,7 +552,7 @@ Update
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/8b1b38ed734629882912bcad42cee98afbe80713/analysis/index.Rmd" target="_blank">8b1b38e</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/8b1b38ed734629882912bcad42cee98afbe80713/analysis/index.Rmd" target="_blank">8b1b38e</a>
 </td>
 <td>
 Your Name
@@ -526,7 +569,7 @@ Update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/8b1b38ed734629882912bcad42cee98afbe80713/docs/index.html" target="_blank">8b1b38e</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/8b1b38ed734629882912bcad42cee98afbe80713/docs/index.html" target="_blank">8b1b38e</a>
 </td>
 <td>
 Your Name
@@ -543,7 +586,7 @@ Update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/5f41864c5e2eb7dcfce1f3cfdf23481aa265b88a/docs/index.html" target="_blank">5f41864</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/5f41864c5e2eb7dcfce1f3cfdf23481aa265b88a/docs/index.html" target="_blank">5f41864</a>
 </td>
 <td>
 Your Name
@@ -560,7 +603,7 @@ update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/decca4029f17522db51392bb8ecd3ce21db33bca/docs/index.html" target="_blank">decca40</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/decca4029f17522db51392bb8ecd3ce21db33bca/docs/index.html" target="_blank">decca40</a>
 </td>
 <td>
 Your Name
@@ -577,7 +620,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/cebfba5b3b9294cee009fbe1826a0986ee2cac49/analysis/index.Rmd" target="_blank">cebfba5</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/cebfba5b3b9294cee009fbe1826a0986ee2cac49/analysis/index.Rmd" target="_blank">cebfba5</a>
 </td>
 <td>
 Your Name
@@ -594,7 +637,7 @@ wflow_publish(“analysis/index.rmd”)
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/47f49129f09c14400faea99108c055b4c8c1bbfc/analysis/index.Rmd" target="_blank">47f4912</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/47f49129f09c14400faea99108c055b4c8c1bbfc/analysis/index.Rmd" target="_blank">47f4912</a>
 </td>
 <td>
 Your Name
@@ -611,7 +654,7 @@ Update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/47f49129f09c14400faea99108c055b4c8c1bbfc/docs/index.html" target="_blank">47f4912</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/47f49129f09c14400faea99108c055b4c8c1bbfc/docs/index.html" target="_blank">47f4912</a>
 </td>
 <td>
 Your Name
@@ -628,7 +671,7 @@ Update
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/3f30c15292add1acb661021dbd32409c93cfd0f5/analysis/index.Rmd" target="_blank">3f30c15</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/3f30c15292add1acb661021dbd32409c93cfd0f5/analysis/index.Rmd" target="_blank">3f30c15</a>
 </td>
 <td>
 Your Name
@@ -645,7 +688,7 @@ Update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/3f30c15292add1acb661021dbd32409c93cfd0f5/docs/index.html" target="_blank">3f30c15</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/3f30c15292add1acb661021dbd32409c93cfd0f5/docs/index.html" target="_blank">3f30c15</a>
 </td>
 <td>
 Your Name
@@ -662,7 +705,7 @@ Update
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/cd28e0b9354a66c4f5348757b4bb1305e3ac9ba8/docs/index.html" target="_blank">cd28e0b</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/cd28e0b9354a66c4f5348757b4bb1305e3ac9ba8/docs/index.html" target="_blank">cd28e0b</a>
 </td>
 <td>
 Your Name
@@ -679,7 +722,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/41905feaeb4f2c5b7409f444c092e8cbd9603ef5/analysis/index.Rmd" target="_blank">41905fe</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/41905feaeb4f2c5b7409f444c092e8cbd9603ef5/analysis/index.Rmd" target="_blank">41905fe</a>
 </td>
 <td>
 Your Name
@@ -696,7 +739,7 @@ wflow_publish(“~/natarajanlab_wiki/analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/2a5abe9b34d22cdb6c26257b67e5a9236eebe385/docs/index.html" target="_blank">2a5abe9</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/2a5abe9b34d22cdb6c26257b67e5a9236eebe385/docs/index.html" target="_blank">2a5abe9</a>
 </td>
 <td>
 Sarah Urbut
@@ -713,7 +756,7 @@ Build site.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/e3d552adc5610563d37220eb56842bd475549a2e/docs/index.html" target="_blank">e3d552a</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/e3d552adc5610563d37220eb56842bd475549a2e/docs/index.html" target="_blank">e3d552a</a>
 </td>
 <td>
 Sarah Urbut
@@ -730,7 +773,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/d3cac8d4c9e6a0744d0610d578bdc78e84bcbaf3/analysis/index.Rmd" target="_blank">d3cac8d</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/d3cac8d4c9e6a0744d0610d578bdc78e84bcbaf3/analysis/index.Rmd" target="_blank">d3cac8d</a>
 </td>
 <td>
 Sarah Urbut
@@ -747,7 +790,7 @@ wflow_publish(“analysis/index.Rmd”)
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/surbut/natarajanlab_wiki/36159483266b04180c48ac66fccb1dfacafc2155/docs/index.html" target="_blank">3615948</a>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/36159483266b04180c48ac66fccb1dfacafc2155/docs/index.html" target="_blank">3615948</a>
 </td>
 <td>
 Sarah Urbut
@@ -764,7 +807,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/surbut/natarajanlab_wiki/blob/27ea1b4c300a8dceab919e1134a7ad8ee67878ce/analysis/index.Rmd" target="_blank">27ea1b4</a>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/27ea1b4c300a8dceab919e1134a7ad8ee67878ce/analysis/index.Rmd" target="_blank">27ea1b4</a>
 </td>
 <td>
 Sarah Urbut
@@ -783,7 +826,7 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful.</p>
+<p>Welcome! This is a repo to share the code that other members of the lab are working on. We can continuously update it with codes that we refer to often, questions we ask, or resources we find helpful. If you have a script you think might be useful to have on the site, please let me know via github or email and will push!</p>
 <p>Click <a href="torus_metaplot.html">here</a> for the code to torus_metaplot</p>
 <p>Click <a href="popsscropts.html">here</a> for the code to PoPs</p>
 <p>Click <a href="500kb.html">here</a> for the code to selecting by 500 kb blocks</p>
