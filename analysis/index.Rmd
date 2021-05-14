@@ -23,4 +23,4 @@ Click [here](PRS-CS.html) for sample code to run PRS-CT
 
 I love these [5 Minute Stats](https://stephens999.github.io/fiveMinuteStats/) lessons to illustrate key concepts.
 
-
+For a tutorial on how to run [mashR](https://stephenslab.github.io/mashr/articles/intro_mash.html) i like the eQTL vignette within.
