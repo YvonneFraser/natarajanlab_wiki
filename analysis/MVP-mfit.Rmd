@@ -10,16 +10,18 @@ library("mashr")
 library("flashr")
 ```
 
-## Fitting mash model
+# Fitting Mash Model
+  
+**Organize the data**
 
-Here we provide with an overview of how the mash fit was conducted for a presorted set of summary statistics across the four lipid traits and provide the model fit object (`mfitMVP.rds`) so that users can recreat. 
+Here we provide with an overview of how the mash fit was conducted for a presorted set of summary statistics across the four lipid traits and provide the model fit object (`mfitMVP.rds`) so that users can recreate. 
 
-1) First, read in a matrix of summary statistics that have already been pruned to contain the same effect allele direction across phenotypes
+**1) First, read in a matrix of summary statistics that have already been pruned to contain the same effect allele direction across phenotypes**
 
-2) Read in a prepruned matrix of maximum statistics across LD blocks
+**2) Read in a pre-pruned matrix of maximum statistics across LD blocks**
 
 
-```{r pressure, echo=FALSE}
+```{r pressure, echo=FALSE,eval=FALSE}
 zmash=readRDS("~/Dropbox/zmash.rds")
 max_block=read.table("~/Dropbox/mash_materials/max_ld_block.txt")
 source('~/Dropbox/mash_materials/flashscript.R')
@@ -27,7 +29,7 @@ source('~/Dropbox/mash_materials/flashscript.R')
 
 
 
-3) estimate Vhat, the covariance of the errors, as the covariance matrix of the weakest effects
+**3) estimate VHat, the covariance of the errors, as the covariance matrix of the weakest effects**
 
 
 ```{r,eval=F}
@@ -42,7 +44,8 @@ data.random = mash_set_data(zmash[random.subset,],alpha = 1,V=Vhat)
 ```
 
 
-4) estimate covarianve matrices Uk
+**4) Estimate covariance matrices $U_{k}$**
+
 ```{r,eval=F}
 zmax=apply(max_block[,c(4:7)],2,function(x){as.numeric(x)});rownames(zmax)=max_block$snpid.x
 data.strong = mash_set_data(zmax,alpha = 1,V=Vhat)
@@ -56,7 +59,8 @@ U.c = cov_canonical(data.random)
 ```
 
 
-5) estimate model fit
+## 5) Compute weights:
+
 ```{r,eval=F}
 m = mash(data.random, Ulist = c(U.ed,U.c),outputlevel = 1)
 saveRDS(m,"../data/mfitMVP.rds")
@@ -64,7 +68,8 @@ saveRDS(m,"../data/mfitMVP.rds")
 
 
 
-6) compute posteriors
+**6) Compute Posteriors**
+
 ```{r,eval=F}
 for(i in 0:13){
   start=i*2e6+1
@@ -77,7 +82,7 @@ for(i in 0:13){
 }
 ```
 
-We have merged to create the shared files with posterior means (`combined_pm_MVP.rds`) and lfsr (`combined_lfsr_mvp.rds`).Because these are for the Exchangeable Z statistic model, the posterior means (E(b/shat|shat,Data)) are then rescaled by the standard error of beta hat (`Merged_MVP_Full_se_raw`) to create `MVP_all_beta_posterior_beta` and `posterior_beta_se.txt` or the weighting algorithm in the PRS computations. 
+We have merged to create the shared files with posterior means (`combined_pm_MVP.rds`) and lfsr (`combined_lfsr_mvp.rds`).Because these are for the Exchangeable Z statistic model, the posterior means (E(b/shat|shat,Data)) are then rescaled by the standard error of beta hat to produce (E(b|shat,Data)): (`Merged_MVP_Full_se_raw`) to create `MVP_all_beta_posterior_beta` and `posterior_beta_se.txt` or the weighting algorithm in the PRS computations. 
 
 
 
