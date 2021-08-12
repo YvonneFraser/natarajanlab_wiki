@@ -12,7 +12,7 @@ editor_options:
 
 In this diagram, we plot the overlap between blocks containing at least one variant in  the 500 kb blocks delimited by UKBB and MVP.
 
-First, read in the data
+First, read in the data. These tables represent the presence or absence of a variant satisfying lfsr $<$ 5e-2 or within 500 kb of a known variant satisfying p val $<$ 5e-8 (from Klarin et al)
 ```{r}
 mvp=read.table("~/Dropbox/mash_materials/blocks_mvp.txt",header = T)
 ukbb=read.table("~/Dropbox/mash_materials/blocks_ukbb.txt",header = T)
