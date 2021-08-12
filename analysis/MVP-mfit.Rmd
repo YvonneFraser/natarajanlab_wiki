@@ -16,9 +16,13 @@ library("flashr")
 
 Here we provide with an overview of how the mash fit was conducted for a presorted set of summary statistics across the four lipid traits and provide the model fit object (`mfitMVP.rds`) so that users can recreate. 
 
-**1) First, read in a matrix of summary statistics that have already been pruned to contain the same effect allele direction across phenotypes**
+**1) Summary Statistics**
 
-**2) Read in a pre-pruned matrix of maximum statistics across LD blocks**
+First, read in a matrix of summary statistics that have already been pruned to contain the same effect allele direction across phenotypes
+
+**2) Choosing Maxes across LD blocks**
+
+Read in a pre-pruned matrix of maximum statistics across LD blocks
 
 
 ```{r pressure, echo=FALSE,eval=FALSE}
@@ -27,10 +31,9 @@ max_block=read.table("~/Dropbox/mash_materials/max_ld_block.txt")
 source('~/Dropbox/mash_materials/flashscript.R')
 ```
 
+**3) estimate Vhat**
 
-
-**3) estimate VHat, the covariance of the errors, as the covariance matrix of the weakest effects**
-
+Vhat is the covariance of the errors, as the covariance matrix of the weakest effects
 
 ```{r,eval=F}
 # identify a random subset of 40000 tests from which to estimate weakest effects
