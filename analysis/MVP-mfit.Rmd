@@ -10,7 +10,7 @@ library("mashr")
 library("flashr")
 ```
 
-##Fitting mash model
+## Fitting mash model
 
 Here we provide with an overview of how the mash fit was conducted for a presorted set of summary statistics across the four lipid traits and provide the model fit object (`mfitMVP.rds`) so that users can recreat. 
 
