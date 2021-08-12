@@ -472,16 +472,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree343a67c8f5764920f68eb37d5cc812542b9dfd99targetblank343a67ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/343a67c8f5764920f68eb37d5cc812542b9dfd99" target="_blank">343a67c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree0ae887715e42033785b7d1cea03aaf73063ee45dtargetblank0ae8877a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/0ae887715e42033785b7d1cea03aaf73063ee45d" target="_blank">0ae8877</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree343a67c8f5764920f68eb37d5cc812542b9dfd99targetblank343a67ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree0ae887715e42033785b7d1cea03aaf73063ee45dtargetblank0ae8877a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/343a67c8f5764920f68eb37d5cc812542b9dfd99" target="_blank">343a67c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/0ae887715e42033785b7d1cea03aaf73063ee45d" target="_blank">0ae8877</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -529,6 +529,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/0ae887715e42033785b7d1cea03aaf73063ee45d/analysis/MVP-mfit.Rmd" target="_blank">0ae8877</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+<td>
+wflow_publish("analysis/MVP-mfit.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/d8a162ace1abf4134e20059aac1b28bcf9e62191/docs/MVP-mfit.html" target="_blank">d8a162a</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -587,14 +621,13 @@ wflow_publish("analysis/MVP-mfit.Rmd")
 </div>
 </div>
 </div>
-<div id="fitting-mash-model" class="section level2">
-<h2>Fitting mash model</h2>
-<p>Here we provide with an overview of how the mash fit was conducted for a presorted set of summary statistics across the four lipid traits and provide the model fit object (<code>mfitMVP.rds</code>) so that users can recreat.</p>
-<ol style="list-style-type: decimal">
-<li><p>First, read in a matrix of summary statistics that have already been pruned to contain the same effect allele direction across phenotypes</p></li>
-<li><p>Read in a prepruned matrix of maximum statistics across LD blocks</p></li>
-<li><p>estimate Vhat, the covariance of the errors, as the covariance matrix of the weakest effects</p></li>
-</ol>
+<div id="fitting-mash-model" class="section level1">
+<h1>Fitting Mash Model</h1>
+<p><strong>Organize the data</strong></p>
+<p>Here we provide with an overview of how the mash fit was conducted for a presorted set of summary statistics across the four lipid traits and provide the model fit object (<code>mfitMVP.rds</code>) so that users can recreate.</p>
+<p><strong>1) First, read in a matrix of summary statistics that have already been pruned to contain the same effect allele direction across phenotypes</strong></p>
+<p><strong>2) Read in a pre-pruned matrix of maximum statistics across LD blocks</strong></p>
+<p><strong>3) estimate VHat, the covariance of the errors, as the covariance matrix of the weakest effects</strong></p>
 <pre class="r"><code># identify a random subset of 40000 tests from which to estimate weakest effects
 random.subset = sample(1:nrow(znew),40000)
 zmash=as.matrix(znew[,c(&quot;hdl&quot;,&quot;ldl&quot;,&quot;tg&quot;,&quot;tc&quot;)]);rownames(zmash)=ztab$snpid.x
@@ -603,9 +636,7 @@ Vhat = estimate_null_correlation_simple(data.temp)
 #saveRDS(Vhat,&quot;.../data/MVPVhat.rds&quot;)
 ##Now add that to the mash object
 data.random = mash_set_data(zmash[random.subset,],alpha = 1,V=Vhat)</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>estimate covarianve matrices Uk</li>
-</ol>
+<p><strong>4) Estimate covariance matrices <span class="math inline">\(U_{k}\)</span></strong></p>
 <pre class="r"><code>zmax=apply(max_block[,c(4:7)],2,function(x){as.numeric(x)});rownames(zmax)=max_block$snpid.x
 data.strong = mash_set_data(zmax,alpha = 1,V=Vhat)
 
@@ -615,14 +646,11 @@ U.flash=cov_flash(data.strong, non_canonical = TRUE)
 X.center = apply(data.strong$Bhat, 2, function(x) x - mean(x))
 U.ed = cov_ed(data.strong, c(U.flash, U.pca, list(&quot;XX&quot; = t(X.center) %*% X.center / nrow(X.center))))
 U.c = cov_canonical(data.random)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>estimate model fit</li>
-</ol>
+<div id="compute-weights" class="section level2">
+<h2>5) Compute weights:</h2>
 <pre class="r"><code>m = mash(data.random, Ulist = c(U.ed,U.c),outputlevel = 1)
 saveRDS(m,&quot;../data/mfitMVP.rds&quot;)</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>compute posteriors</li>
-</ol>
+<p><strong>6) Compute Posteriors</strong></p>
 <pre class="r"><code>for(i in 0:13){
   start=i*2e6+1
   stop=(i+1)*2e6
@@ -632,7 +660,7 @@ saveRDS(m,&quot;../data/mfitMVP.rds&quot;)</code></pre>
   p=mash_compute_posterior_matrices(m$fitted_g, mash.data, algorithm.version = &quot;Rcpp&quot;)
   saveRDS(p,file = paste0(&quot;../data//mash_mvp_batch&quot;,i,&quot;.rds&quot;))
 }</code></pre>
-<p>We have merged to create the shared files with posterior means (<code>combined_pm_MVP.rds</code>) and lfsr (<code>combined_lfsr_mvp.rds</code>).Because these are for the Exchangeable Z statistic model, the posterior means (E(b/shat|shat,Data)) are then rescaled by the standard error of beta hat (<code>Merged_MVP_Full_se_raw</code>) to create <code>MVP_all_beta_posterior_beta</code> and <code>posterior_beta_se.txt</code> or the weighting algorithm in the PRS computations.</p>
+<p>We have merged to create the shared files with posterior means (<code>combined_pm_MVP.rds</code>) and lfsr (<code>combined_lfsr_mvp.rds</code>).Because these are for the Exchangeable Z statistic model, the posterior means (E(b/shat|shat,Data)) are then rescaled by the standard error of beta hat to produce (E(b|shat,Data)): (<code>Merged_MVP_Full_se_raw</code>) to create <code>MVP_all_beta_posterior_beta</code> and <code>posterior_beta_se.txt</code> or the weighting algorithm in the PRS computations.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -656,25 +684,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] mixsqp_0.3-43   flashr_0.6-7    mashr_0.2.50    ashr_2.2-51    
-[5] workflowr_1.6.2
+[1] flashr_0.6-7    mashr_0.2.50    ashr_2.2-51     workflowr_1.6.2
 
 loaded via a namespace (and not attached):
  [1] softImpute_1.4-1  tidyselect_1.1.1  xfun_0.24         bslib_0.2.5.1    
  [5] reshape2_1.4.4    purrr_0.3.4       lattice_0.20-44   generics_0.1.0   
  [9] colorspace_2.0-2  vctrs_0.3.8       htmltools_0.5.1.1 yaml_2.2.1       
-[13] utf8_1.2.2        rlang_0.4.11      jquerylib_0.1.4   later_1.2.0      
-[17] pillar_1.6.1      DBI_1.1.1         glue_1.4.2        lifecycle_1.0.0  
-[21] plyr_1.8.6        stringr_1.4.0     munsell_0.5.0     gtable_0.3.0     
-[25] mvtnorm_1.1-2     evaluate_0.14     knitr_1.33        httpuv_1.6.1     
-[29] invgamma_1.1      irlba_2.3.3       fansi_0.5.0       Rcpp_1.0.7       
-[33] promises_1.2.0.1  scales_1.1.1      rmeta_3.0         jsonlite_1.7.2   
-[37] truncnorm_1.0-8   abind_1.4-5       fs_1.5.0          ggplot2_3.3.5    
-[41] digest_0.6.27     stringi_1.7.3     dplyr_1.0.7       grid_4.0.2       
-[45] rprojroot_2.0.2   tools_4.0.2       magrittr_2.0.1    sass_0.4.0       
-[49] tibble_3.1.3      crayon_1.4.1      whisker_0.4       pkgconfig_2.0.3  
-[53] ellipsis_0.3.2    Matrix_1.3-4      SQUAREM_2021.1    assertthat_0.2.1 
-[57] rmarkdown_2.9     R6_2.5.0          git2r_0.28.0      compiler_4.0.2   </code></pre>
+[13] utf8_1.2.2        rlang_0.4.11      mixsqp_0.3-43     jquerylib_0.1.4  
+[17] later_1.2.0       pillar_1.6.1      DBI_1.1.1         glue_1.4.2       
+[21] lifecycle_1.0.0   plyr_1.8.6        stringr_1.4.0     munsell_0.5.0    
+[25] gtable_0.3.0      mvtnorm_1.1-2     evaluate_0.14     knitr_1.33       
+[29] httpuv_1.6.1      invgamma_1.1      irlba_2.3.3       fansi_0.5.0      
+[33] Rcpp_1.0.7        promises_1.2.0.1  scales_1.1.1      rmeta_3.0        
+[37] jsonlite_1.7.2    truncnorm_1.0-8   abind_1.4-5       fs_1.5.0         
+[41] ggplot2_3.3.5     digest_0.6.27     stringi_1.7.3     dplyr_1.0.7      
+[45] grid_4.0.2        rprojroot_2.0.2   tools_4.0.2       magrittr_2.0.1   
+[49] sass_0.4.0        tibble_3.1.3      crayon_1.4.1      whisker_0.4      
+[53] pkgconfig_2.0.3   ellipsis_0.3.2    Matrix_1.3-4      SQUAREM_2021.1   
+[57] assertthat_0.2.1  rmarkdown_2.9     R6_2.5.0          git2r_0.28.0     
+[61] compiler_4.0.2   </code></pre>
+</div>
 </div>
 </div>
 
