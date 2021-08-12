@@ -476,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreec31c759bfe67ed1898bbb4006ae8231149c33dd2targetblankc31c759a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/c31c759bfe67ed1898bbb4006ae8231149c33dd2" target="_blank">c31c759</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree90070194061b9723f1707d77ac4a9cd96f9cef80targetblank9007019a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/90070194061b9723f1707d77ac4a9cd96f9cef80" target="_blank">9007019</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreec31c759bfe67ed1898bbb4006ae8231149c33dd2targetblankc31c759a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree90070194061b9723f1707d77ac4a9cd96f9cef80targetblank9007019a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/c31c759bfe67ed1898bbb4006ae8231149c33dd2" target="_blank">c31c759</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/90070194061b9723f1707d77ac4a9cd96f9cef80" target="_blank">9007019</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -538,6 +538,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/90070194061b9723f1707d77ac4a9cd96f9cef80/analysis/venn_diagrams.Rmd" target="_blank">9007019</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+<td>
+wflow_publish("analysis/venn_diagrams.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/7b1b03d12b4a5715beab94aeb0ced73227518305/docs/venn_diagrams.html" target="_blank">7b1b03d</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/c31c759bfe67ed1898bbb4006ae8231149c33dd2/analysis/venn_diagrams.Rmd" target="_blank">c31c759</a>
 </td>
 <td>
@@ -560,7 +594,7 @@ wflow_publish("analysis/venn_diagrams.Rmd")
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
 <p>In this diagram, we plot the overlap between blocks containing at least one variant in the 500 kb blocks delimited by UKBB and MVP.</p>
-<p>First, read in the data</p>
+<p>First, read in the data. These tables represent the presence or absence of a variant satisfying lfsr <span class="math inline">\(&lt;\)</span> 5e-2 or within 500 kb of a known variant satisfying p val <span class="math inline">\(&lt;\)</span> 5e-8 (from Klarin et al)</p>
 <pre class="r"><code>mvp=read.table(&quot;~/Dropbox/mash_materials/blocks_mvp.txt&quot;,header = T)
 ukbb=read.table(&quot;~/Dropbox/mash_materials/blocks_ukbb.txt&quot;,header = T)
 mtag=read.table(&quot;~/Dropbox/mash_materials/blocks_mtag.txt&quot;,header = T)
@@ -579,6 +613,43 @@ plot(fit.hdl,
      quantities = list(cex = 2),adjust_labels = F,
      main=&quot;HDL-C&quot;,labels=list(cex=2))</code></pre>
 <p><img src="figure/venn_diagrams.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
+Past versions of unnamed-chunk-2-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/7b1b03d12b4a5715beab94aeb0ced73227518305/docs/figure/venn_diagrams.Rmd/unnamed-chunk-2-1.png" target="_blank">7b1b03d</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(fit.ldl,
      fills = c(&quot;steelblue1&quot;,&quot;tomato1&quot;,&quot;lightgreen&quot;),
      edges = T,
@@ -586,6 +657,43 @@ plot(fit.hdl,
      quantities = list(cex = 2),adjust_labels = F,
      main=&quot;LDL-C&quot;,labels=list(cex=2))</code></pre>
 <p><img src="figure/venn_diagrams.Rmd/unnamed-chunk-2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-2">
+Past versions of unnamed-chunk-2-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/7b1b03d12b4a5715beab94aeb0ced73227518305/docs/figure/venn_diagrams.Rmd/unnamed-chunk-2-2.png" target="_blank">7b1b03d</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot(fit.tg,
      fills = c(&quot;steelblue1&quot;,&quot;tomato1&quot;,&quot;lightgreen&quot;),
      edges = T,
@@ -593,6 +701,43 @@ plot(fit.hdl,
      quantities = list(cex = 2),adjust_labels = F,
      main=&quot;TG&quot;,labels=list(cex=2))</code></pre>
 <p><img src="figure/venn_diagrams.Rmd/unnamed-chunk-2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-3">
+Past versions of unnamed-chunk-2-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-2-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/7b1b03d12b4a5715beab94aeb0ced73227518305/docs/figure/venn_diagrams.Rmd/unnamed-chunk-2-3.png" target="_blank">7b1b03d</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-08-12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
