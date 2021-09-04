@@ -1,0 +1,303 @@
+---
+title: "simualtions"
+output:
+  workflowr::wflow_html:
+    code_folding: show
+    toc: no
+  html_notebook: default
+  html_document:
+    df_print: paged
+    toc: no
+editor_options:
+  chunk_output_type: inline
+---
+
+# Introduction
+
+## Introduction
+
+We seek to quantify the enrichment of annotation parameters using multivariate or univariate input. To run the software [TORUS](https://github.com/xqwen/torus) we use a [pipeline](https://github.com/cumc/bioworkflows/blob/master/fine-mapping/gwas_enrichment.ipynb) available using the workflow manager SOS and run the following two lines of code. 
+
+
+```{r,eval=F,echo=T}
+sos run fine-mapping/gwas_enrichment.ipynb range2var_annotation --cwd $work_dir --annotation_dir $anno_dir --z-score $z_file --single-annot $single
+sos run fine-mapping/gwas_enrichment.ipynb enrichment --cwd $work_dir --annotation_dir $anno_dir --z-score $z_file --single-annot $single --blocks $blk --snps $snps
+```
+
+We place the results of the Torus pipeline in `mvp_complete_torus` where `mash` and `original` refer to the results using univariate and multivariate summary stats respectively.
+
+Here, we plot the meta analysis results:
+
+
+###HDL
+
+```{r}
+library('ggplot2') 
+library("tidyverse")
+
+
+mash.hdl=read.csv(("~/Downloads/mvp_complete_torus//mash/hdl.zscore.torus.merged.csv"))
+mash.hdl=mash.hdl[-which(mash.hdl$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+###Orignal
+raw.hdl=read.csv(("~/Downloads/mvp_complete_torus/original/original_z_mvp.hdl.zscore.torus.merged.csv"))
+raw.hdl=raw.hdl[-which(raw.hdl$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+
+
+df1=mash.hdl[,c(1:4)]
+colnames(df1)=c("Outcome","log2OR","Lower","Upper")
+df1$se=(df1$log2OR-df1$Lower)/1.96
+
+df2=raw.hdl[,c(1:4)]
+
+colnames(df2)=c("Outcome","log2OR","Lower","Upper")
+df2$se=(df2$log2OR-df2$Lower)/1.96
+
+# add a group column
+df1$group <- "mash"
+# create a second dataset, similar format to first
+
+# different group
+df2$group <- "univariate"
+# and we adjust the values a bit, so it will look different in the plot
+df2[,c("log2OR","Lower","Upper")] 
+
+# combine the two datasets                      
+df = rbind(df1,df2)
+
+
+z=(df1$log2OR-df2$log2OR)/sqrt(df1$se^2+df2$se^2)
+p=2*pnorm(-1*abs(z))
+
+
+
+
+dotCOLS = c("#a6d8f0","#f9b282")
+barCOLS = c("#008fd5","#de6b35")
+dotCOLS = c("#a6d8f0","gray80")
+barCOLS = c("#008fd5","gray80")
+
+df$p=c(p,p)
+df$fp = format.pval(df$p,digits=1)
+
+p = df %>% ggplot(aes(y=reorder(Outcome, desc(p)), x=log2OR, xmin=Lower, xmax=Upper, col=group, fill=group)) +
+    geom_point(size=3, position=position_dodge(width = 0.5)) +
+    geom_errorbarh(height=0, size=1, position=position_dodge(width = 0.5)) +
+    geom_vline(xintercept=0, lty=2) +
+    # geom_point(size=3, shape=21, colour="white", stroke = 0.5, position=position_dodge(width = 0.5)) +
+    scale_fill_manual(values=barCOLS)+
+    scale_color_manual(values=dotCOLS)+
+    scale_y_discrete(name="Annotation") +
+    scale_x_continuous(name="Log2 Odds ratio in HDL", limits = c(-5, 12), breaks=c(-5,0,5,10), labels=c(-5,0,5,"P-value"), position='top') +
+    theme_minimal() +
+    theme(legend.position=c(0.05,0.05), legend.justification=c(0,0), legend.title=element_blank()) +
+    geom_text(aes(x=10, y=Outcome, label=fp), hjust=0.5, color='black')
+
+#pdf("~/Dropbox/hdl_torus.pdf")
+p
+#dev.off()
+
+```
+
+###LDL
+```{r}
+
+rm(list=ls())
+
+
+
+
+library('ggplot2') 
+
+mash.ldl=read.csv(("~/Downloads/mvp_complete_torus//mash/ldl.zscore.torus.merged.csv"))
+mash.ldl=mash.ldl[-which(mash.ldl$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+###Orignal
+raw.ldl=read.csv(("~/Downloads/mvp_complete_torus/original/original_z_mvp.ldl.zscore.torus.merged.csv"))
+raw.ldl=raw.ldl[-which(raw.ldl$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+
+
+df1=mash.ldl[,c(1:4)]
+colnames(df1)=c("Outcome","log2OR","Lower","Upper")
+df1$se=(df1$log2OR-df1$Lower)/1.96
+
+df2=raw.ldl[,c(1:4)]
+
+colnames(df2)=c("Outcome","log2OR","Lower","Upper")
+df2$se=(df2$log2OR-df2$Lower)/1.96
+
+# add a group column
+df1$group <- "mash"
+# create a second dataset, similar format to first
+
+# different group
+df2$group <- "raw"
+# and we adjust the values a bit, so it will look different in the plot
+df2[,c("log2OR","Lower","Upper")] 
+
+# combine the two datasets                      
+df = rbind(df1,df2)
+
+
+z=(df1$log2OR-df2$log2OR)/sqrt(df1$se^2+df2$se^2)
+p=2*pnorm(-1*abs(z))
+
+
+dotCOLS = c("#a6d8f0","#f9b282")
+barCOLS  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+dotCOLS = c("blue2","red2")
+barCOLS <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+df$p=c(p,p)
+df$fp = format.pval(df$p,digits=1)
+
+p = df %>% ggplot(aes(y=reorder(Outcome, desc(p)), x=log2OR, xmin=Lower, xmax=Upper, col=group, fill=group)) +
+    geom_point(size=3, position=position_dodge(width = 0.5)) +
+    geom_errorbarh(height=0, size=1, position=position_dodge(width = 0.5)) +
+    geom_vline(xintercept=0, lty=2) +
+    # geom_point(size=3, shape=21, colour="white", stroke = 0.5, position=position_dodge(width = 0.5)) +
+    scale_fill_manual(values=barCOLS)+
+    scale_color_manual(values=dotCOLS)+
+    scale_y_discrete(name="Annotation") +
+    scale_x_continuous(name="Log2 Odds ratio in ldl", limits = c(-5, 12), breaks=c(-5,0,5,10), labels=c(-5,0,5,"P-value"), position='top') +
+    theme_minimal() +
+    theme(legend.position=c(0.05,0.05), legend.justification=c(0,0), legend.title=element_blank()) +
+    geom_text(aes(x=10, y=Outcome, label=fp), hjust=0.5, color='black')
+
+
+p
+
+```
+
+
+###TG
+
+```{r}
+rm(list=ls())
+library('ggplot2') 
+
+mash.tg=read.csv(("~/Downloads/mvp_complete_torus//mash/tg.zscore.torus.merged.csv"))
+mash.tg=mash.tg[-which(mash.tg$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+###Orignal
+raw.tg=read.csv(("~/Downloads/mvp_complete_torus/original/original_z_mvp.tg.zscore.torus.merged.csv"))
+raw.tg=raw.tg[-which(raw.tg$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+
+
+df1=mash.tg[,c(1:4)]
+colnames(df1)=c("Outcome","log2OR","Lower","Upper")
+df1$se=(df1$log2OR-df1$Lower)/1.96
+
+df2=raw.tg[,c(1:4)]
+
+colnames(df2)=c("Outcome","log2OR","Lower","Upper")
+df2$se=(df2$log2OR-df2$Lower)/1.96
+
+# add a group column
+df1$group <- "mash"
+# create a second dataset, similar format to first
+
+# different group
+df2$group <- "raw"
+# and we adjust the values a bit, so it will look different in the plot
+df2[,c("log2OR","Lower","Upper")] 
+
+# combine the two datasets                      
+df = rbind(df1,df2)
+
+
+z=(df1$log2OR-df2$log2OR)/sqrt(df1$se^2+df2$se^2)
+p=2*pnorm(-1*abs(z))
+
+
+
+
+dotCOLS = c("#a6d8f0","#f9b282")
+barCOLS = c("#008fd5","#de6b35")
+dotCOLS = c("#a6d8f0","gray80")
+barCOLS = c("#008fd5","gray80")
+
+df$p=c(p,p)
+df$fp = format.pval(df$p,digits=1)
+
+p = df %>% ggplot(aes(y=reorder(Outcome, desc(p)), x=log2OR, xmin=Lower, xmax=Upper, col=group, fill=group)) +
+    geom_point(size=3, position=position_dodge(width = 0.5)) +
+    geom_errorbarh(height=0, size=1, position=position_dodge(width = 0.5)) +
+    geom_vline(xintercept=0, lty=2) +
+    # geom_point(size=3, shape=21, colour="white", stroke = 0.5, position=position_dodge(width = 0.5)) +
+    scale_fill_manual(values=barCOLS)+
+    scale_color_manual(values=dotCOLS)+
+    scale_y_discrete(name="Annotation") +
+    scale_x_continuous(name="Log2 Odds ratio in tg", limits = c(-5, 12), breaks=c(-5,0,5,10), labels=c(-5,0,5,"P-value"), position='top') +
+    theme_minimal() +
+    theme(legend.position=c(0.05,0.05), legend.justification=c(0,0), legend.title=element_blank()) +
+    geom_text(aes(x=10, y=Outcome, label=fp), hjust=0.5, color='black')
+
+
+p
+
+```
+
+###TC
+
+```{r,echo=F}
+rm(list=ls())
+library('ggplot2') 
+
+mash.tc=read.csv(("~/Downloads/mvp_complete_torus//mash/tc.zscore.torus.merged.csv"))
+mash.tc=mash.tc[-which(mash.tc$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+###Orignal
+raw.tc=read.csv(("~/Downloads/mvp_complete_torus/original/original_z_mvp.tc.zscore.torus.merged.csv"))
+raw.tc=raw.tc[-which(raw.tc$annotation=="GTEx_FE_META_TISSUE_GE_MaxCPP"),]
+
+
+df1=mash.tc[,c(1:4)]
+colnames(df1)=c("Outcome","log2OR","Lower","Upper")
+df1$se=(df1$log2OR-df1$Lower)/1.96
+
+df2=raw.tc[,c(1:4)]
+
+colnames(df2)=c("Outcome","log2OR","Lower","Upper")
+df2$se=(df2$log2OR-df2$Lower)/1.96
+
+# add a group column
+df1$group <- "mash"
+# create a second dataset, similar format to first
+
+# different group
+df2$group <- "raw"
+# and we adjust the values a bit, so it will look different in the plot
+df2[,c("log2OR","Lower","Upper")] 
+
+# combine the two datasets                      
+df = rbind(df1,df2)
+
+
+z=(df1$log2OR-df2$log2OR)/sqrt(df1$se^2+df2$se^2)
+p=2*pnorm(-1*abs(z))
+
+
+dotCOLS = c("#a6d8f0","#f9b282")
+barCOLS = c("#008fd5","#de6b35")
+dotCOLS = c("#a6d8f0","gray80")
+barCOLS = c("#008fd5","gray80")
+
+df$p=c(p,p)
+df$fp = format.pval(df$p,digits=1)
+
+p = df %>% ggplot(aes(y=reorder(Outcome, desc(p)), x=log2OR, xmin=Lower, xmax=Upper, col=group, fill=group)) +
+    geom_point(size=3, position=position_dodge(width = 0.5)) +
+    geom_errorbarh(height=0, size=1, position=position_dodge(width = 0.5)) +
+    geom_vline(xintercept=0, lty=2) +
+    # geom_point(size=3, shape=21, colour="white", stroke = 0.5, position=position_dodge(width = 0.5)) +
+    scale_fill_manual(values=barCOLS)+
+    scale_color_manual(values=dotCOLS)+
+    scale_y_discrete(name="Annotation") +
+    scale_x_continuous(name="Log2 Odds ratio in tc", limits = c(-5, 12), breaks=c(-5,0,5,10), labels=c(-5,0,5,"P-value"), position='top') +
+    theme_minimal() +
+    theme(legend.position=c(0.05,0.05), legend.justification=c(0,0), legend.title=element_blank()) +
+    geom_text(aes(x=10, y=Outcome, label=fp), hjust=0.5, color='black')
+
+
+p
+
+```
+
+
