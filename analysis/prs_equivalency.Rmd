@@ -77,9 +77,10 @@ Now, we wish to consider how the quantiles of PRS risk compare to LDL, and how a
 
 ```{r}
 par(mfrow=c(1,3))
-plot(prs_quantiles,p,main="predicted risk vs PRS quantiles",ylab="Predicted Risk of CAD")
-plot(ldl_quantiles,l,main="predicted risk vs LDL-adj quantiles",ylab="Predicted risk of CAD")
-plot(df$LDL_adj,l,main="predicted risk vs LDL-adj")
+plot(prs_quantiles,p,main="predicted risk vs PRS quantiles",ylab="Predicted Risk of CAD",ylim=c(0.90,1.20))
+plot(ldl_quantiles,l,main="predicted risk vs LDL-adj quantiles",ylab="Predicted risk of CAD",ylim=c(0.90,1.20))
+plot(df$LDL_adj,l,main="predicted risk vs LDL-adj",ylab="Predicted risk of CAD",ylim=c(0.90,1.20))
+abline(v=190)
 
 par(mfrow=c(1,2))
 plot(ecdf(p),main="CDF of predicted risk using PRS",xlab="Predicted Risk")
