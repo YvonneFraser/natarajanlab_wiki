@@ -1,0 +1,93 @@
+---
+title: "prs_equivalency"
+author: "Sarah Urbut"
+date: "2021-09-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+We want to understand the equivalent quantile of PRS risk that equates with risk conveyed by traditional risk factors.
+
+First, we organize the data:
+```{r,eval=F}
+rm(list=ls())
+prs=read.table("~/Dropbox/cad_AnnoPred.profile",header=T)
+cov=read.table("~/Dropbox/big_ukb_file.txt",header=T,sep="\t")
+ukb_adj_cov=read.table("~/Dropbox/PRS_gwas_mashr/UKB.4700.adj.cov",header=T)
+
+
+i=as.character(intersect(intersect(prs$IID,cov$id),ukb_adj_cov$FID))
+
+rownames(prs)=prs$IID
+rownames(cov)=cov$id
+rownames(ukb_adj_cov)=ukb_adj_cov$FID
+
+df=na.omit(data.frame(prs[i,],"cad"=cov[i,"Coronary_Artery_Disease"],cov[i,c("PC1","PC2","PC3","PC4","PC5")],ukb_adj_cov[i,c(3:7)]))
+
+df$SCORESUM=-1*df$SCORESUM
+```
+
+```{r}
+df=readRDS("~/Dropbox/df_ukb.rds")
+head(df)
+```
+
+
+Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Now, let's fit some simple logistic regression:
+
+```{r}
+pr_logit=glm(df$cad~df$SCORESUM)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+
+exp(coef(pr_logit))
+
+ldl_logit=glm(df$cad~df$LDL_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+
+exp(coef(ldl_logit))
+
+
+tc_logit=glm(df$cad~df$TC_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+
+
+exp(coef(tc_logit))
+```
+
+##Considering Risk
+
+Now, let's consider how the oR of CAD increases with each quantile of PRS and med-adjusted LDL:
+
+Recall that to convert to quantile, simply subtract mean and divide by SD.
+
+```{r}
+prs_quantiles=(df$SCORESUM-mean(df$SCORESUM))/sd(df$SCORESUM)
+ldl_quantiles=(df$LDL_adj-mean(df$LDL_adj))/sd(df$LDL_adj)
+
+### Now predict the model fit
+p=exp(predict(pr_logit))
+l=exp(predict(ldl_logit))
+
+```
+
+##Predicting Risk
+
+Now, we wish to consider how the quantiles of PRS risk compare to LDL, and how a model which includes only PRS or ldl_adjusted compares with cumulative distribution functions:
+
+
+```{r}
+
+
+par(mfrow=c(1,2))
+plot(prs_quantiles,p,main="predicted risk vs PRS quantiles")
+plot(ldl_quantiles,l,main="predicted risk vs LDL-adj quantiles")
+
+par(mfrow=c(1,2))
+plot(ecdf(p),main="CDF of predicted risk using PRS",xlab="Predicted Risk")
+plot(ecdf(l),main="CDF of predicted risk using LDL-adjusted",xlab="Predicted Risk")
+```
+
+
+So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.
+
+
