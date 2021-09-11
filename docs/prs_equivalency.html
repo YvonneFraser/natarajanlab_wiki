@@ -476,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreeeb2ea1afd50980e17d3b36ddca503218eda40ca1targetblankeb2ea1aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/eb2ea1afd50980e17d3b36ddca503218eda40ca1" target="_blank">eb2ea1a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree733145a38a260ffc2d591358a8da6424aa7c311ctargetblank733145aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/733145a38a260ffc2d591358a8da6424aa7c311c" target="_blank">733145a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreeeb2ea1afd50980e17d3b36ddca503218eda40ca1targetblankeb2ea1aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree733145a38a260ffc2d591358a8da6424aa7c311ctargetblank733145aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/eb2ea1afd50980e17d3b36ddca503218eda40ca1" target="_blank">eb2ea1a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/733145a38a260ffc2d591358a8da6424aa7c311c" target="_blank">733145a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -545,6 +545,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/733145a38a260ffc2d591358a8da6424aa7c311c/analysis/prs_equivalency.Rmd" target="_blank">733145a</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-11
+</td>
+<td>
+wflow_publish("analysis/prs_equivalency.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/ba9b2fb46a52b817a7e9cb8569f9dabf4af8517b/docs/prs_equivalency.html" target="_blank">ba9b2fb</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -649,9 +683,10 @@ p=exp(predict(pr_logit))
 l=exp(predict(ldl_logit))</code></pre>
 <p>##Predicting Risk</p>
 <p>Now, we wish to consider how the quantiles of PRS risk compare to LDL, and how a model which includes only PRS or ldl_adjusted compares with cumulative distribution functions:</p>
-<pre class="r"><code>par(mfrow=c(1,2))
-plot(prs_quantiles,p,main=&quot;predicted risk vs PRS quantiles&quot;)
-plot(ldl_quantiles,l,main=&quot;predicted risk vs LDL-adj quantiles&quot;)</code></pre>
+<pre class="r"><code>par(mfrow=c(1,3))
+plot(prs_quantiles,p,main=&quot;predicted risk vs PRS quantiles&quot;,ylab=&quot;Predicted Risk of CAD&quot;)
+plot(ldl_quantiles,l,main=&quot;predicted risk vs LDL-adj quantiles&quot;,ylab=&quot;Predicted risk of CAD&quot;)
+plot(df$LDL_adj,l,main=&quot;predicted risk vs LDL-adj&quot;)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -692,7 +727,7 @@ Your Name
 </div>
 <pre class="r"><code>par(mfrow=c(1,2))
 plot(ecdf(p),main=&quot;CDF of predicted risk using PRS&quot;,xlab=&quot;Predicted Risk&quot;)
-plot(ecdf(l),main=&quot;CDF of predicted risk using LDL-adjusted&quot;,xlab=&quot;Predicted Risk&quot;)</code></pre>
+plot(ecdf(l),main=&quot;CDF of predicted risk usingLDL-adjusted&quot;,xlab=&quot;Predicted Risk&quot;)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
