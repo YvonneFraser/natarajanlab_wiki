@@ -385,7 +385,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-11
+<strong>Last updated:</strong> 2021-09-12
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -476,16 +476,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree82e8dbdaf67256da3e08421cd6124448beee3b4etargetblank82e8dbda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/82e8dbdaf67256da3e08421cd6124448beee3b4e" target="_blank">82e8dbd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree71f8dce665492ee312f2a57400142380c60ec2b3targetblank71f8dcea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/71f8dce665492ee312f2a57400142380c60ec2b3" target="_blank">71f8dce</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree82e8dbdaf67256da3e08421cd6124448beee3b4etargetblank82e8dbda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree71f8dce665492ee312f2a57400142380c60ec2b3targetblank71f8dcea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/82e8dbdaf67256da3e08421cd6124448beee3b4e" target="_blank">82e8dbd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/71f8dce665492ee312f2a57400142380c60ec2b3" target="_blank">71f8dce</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -545,6 +545,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/71f8dce665492ee312f2a57400142380c60ec2b3/analysis/prs_equivalency.Rmd" target="_blank">71f8dce</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-12
+</td>
+<td>
+wflow_publish("analysis/prs_equivalency.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/db7e138719c25e0f606e5a172c3eb46859a75c5d/docs/prs_equivalency.html" target="_blank">db7e138</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -735,8 +769,10 @@ l=exp(predict(ldl_logit))</code></pre>
 <p>##Predicting Risk</p>
 <p>Now, we wish to consider how the quantiles of PRS risk compare to LDL, and how a model which includes only PRS or ldl_adjusted compares with cumulative distribution functions:</p>
 <pre class="r"><code>par(mfrow=c(1,3))
-plot(prs_quantiles,p,main=&quot;predicted risk vs PRS quantiles&quot;,ylab=&quot;Predicted Risk of CAD&quot;,ylim=c(0.90,1.20))
-plot(ldl_quantiles,l,main=&quot;predicted risk vs LDL-adj quantiles&quot;,ylab=&quot;Predicted risk of CAD&quot;,ylim=c(0.90,1.20))
+
+plot((rank(df$SCORESUM)/length(df$SCORESUM)),p,
+main=&quot;predicted risk vs PRS quantiles&quot;,ylab=&quot;Predicted Risk of CAD&quot;,ylim=c(0.90,1.20),xlab=&quot;quantile&quot;)
+plot(rank(df$LDL_adj)/length(df$LDL_adj),l,main=&quot;predicted risk vs LDL-adj quantiles&quot;,ylab=&quot;Predicted risk of CAD&quot;,ylim=c(0.90,1.20),xlab=&quot;quantile&quot;)
 plot(df$LDL_adj,l,main=&quot;predicted risk vs LDL-adj&quot;,ylab=&quot;Predicted risk of CAD&quot;,ylim=c(0.90,1.20))
 abline(v=190)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -764,6 +800,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/db7e138719c25e0f606e5a172c3eb46859a75c5d/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" target="_blank">db7e138</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/8a3acc70f8f4fb84a154dd2261c00696a4aa11a5/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" target="_blank">8a3acc7</a>
 </td>
 <td>
@@ -788,58 +835,22 @@ Your Name
 </table>
 </div>
 </div>
+<p>Now I consider discriminant analysis: how does the distirbution of CAD and LDL score discriminate between CAD and CAD free folks:</p>
+<pre class="r"><code>r=(rank(df$SCORESUM)/length(df$SCORESUM))
+par(mfrow=c(1,2))
+plot(density(r[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Score Distribution by CAD class&quot;,xlab=&quot;Quantile Score&quot;)
+lines(density(r[df$cad==0]),col=&quot;green&quot;)
+legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
+
+plot(density(df$LDL_adj[df$cad==0]),col=&quot;green&quot;,main=&quot;LDL Value Distribution by CAD class&quot;,xlab=&quot;quantile LDL-adjusted&quot;)
+lines(density(df$LDL_adj[df$cad==1]),col=&quot;red&quot;)
+legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)</code></pre>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>And now we consider the cumulative distribution of Predicted CAD risk using only PRS or LDL-adjusted as predictors:</p>
 <pre class="r"><code>par(mfrow=c(1,2))
 plot(ecdf(p),main=&quot;CDF of predicted risk using PRS&quot;,xlab=&quot;Predicted Risk&quot;)
 plot(ecdf(l),main=&quot;CDF of predicted risk usingLDL-adjusted&quot;,xlab=&quot;Predicted Risk&quot;)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-2">
-Past versions of unnamed-chunk-5-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/8a3acc70f8f4fb84a154dd2261c00696a4aa11a5/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-2.png" target="_blank">8a3acc7</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/eb2ea1afd50980e17d3b36ddca503218eda40ca1/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-2.png" target="_blank">eb2ea1a</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.</p>
 <br>
 <p>
