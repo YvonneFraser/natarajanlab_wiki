@@ -2,9 +2,16 @@
 title: "prs_equivalency"
 author: "Sarah Urbut"
 date: "2021-09-11"
-output: workflowr::wflow_html
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+    toc: no
+  html_notebook: default
+  html_document:
+    df_print: paged
+    toc: no
 editor_options:
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ## Introduction
@@ -111,4 +118,16 @@ plot(ecdf(l),main="CDF of predicted risk usingLDL-adjusted",xlab="Predicted Risk
 
 So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.
 
+Let's consider how the distribution of LDLand PRS looks for individuals with and without CAD:
+
+```{r}
+par(mfrow=c(1,2))
+boxplot(df$LDL_adj[df$cad==0],main="Distribution of LDL-adjusted by CAD 0",xlab="CAD=0")
+boxplot(df$LDL_adj[df$cad==1],main="Distribution of LDL-adjusted by CAD = 1",xlab="CAD=1")
+
+
+par(mfrow=c(1,2))
+boxplot(r[df$cad==0],main="Distribution of PRS Quantile by CAD = 0",xlab="CAD=0")
+boxplot(r[df$cad==1],main="Distribution of PRS Quantile by CAD = 1",xlab="CAD=1")
+```
 
