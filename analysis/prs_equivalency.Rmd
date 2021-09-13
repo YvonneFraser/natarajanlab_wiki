@@ -131,3 +131,16 @@ boxplot(r[df$cad==0],main="Distribution of PRS Quantile by CAD = 0",xlab="CAD=0"
 boxplot(r[df$cad==1],main="Distribution of PRS Quantile by CAD = 1",xlab="CAD=1")
 ```
 
+To answer the question: at what quantiles is the risk predicted by PRS equivalnet to LDL>190,
+first we find the risk equivalency of LDL>190:
+
+```{r}
+m=min(l[which(df$LDL_adj>190)])
+m
+```
+
+Now, we ask which quantils of PRS risk are greater than or equal to this:
+```{r}
+min(r[which(p>m)])
+```
+So the 67% of PRS risk is equivalent to LDL >190.
