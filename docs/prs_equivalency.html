@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-12
+<strong>Last updated:</strong> 2021-09-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree58d7339ae66e3e07f7628022ca7a34acfbc8a1e2targetblank58d7339a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/58d7339ae66e3e07f7628022ca7a34acfbc8a1e2" target="_blank">58d7339</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree14d8b2c373f85a4d1492471e00ab9fb3bb3c935ctargetblank14d8b2ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/14d8b2c373f85a4d1492471e00ab9fb3bb3c935c" target="_blank">14d8b2c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree58d7339ae66e3e07f7628022ca7a34acfbc8a1e2targetblank58d7339a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree14d8b2c373f85a4d1492471e00ab9fb3bb3c935ctargetblank14d8b2ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/58d7339ae66e3e07f7628022ca7a34acfbc8a1e2" target="_blank">58d7339</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/14d8b2c373f85a4d1492471e00ab9fb3bb3c935c" target="_blank">14d8b2c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -483,6 +483,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/14d8b2c373f85a4d1492471e00ab9fb3bb3c935c/docs/prs_equivalency.html" target="_blank">14d8b2c</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-12
+</td>
+<td>
+Update
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -744,9 +761,15 @@ rownames(prs)=prs$IID
 rownames(cov)=cov$id
 rownames(ukb_adj_cov)=ukb_adj_cov$FID
 
-df=na.omit(data.frame(prs[i,],&quot;cad&quot;=cov[i,&quot;Coronary_Artery_Disease&quot;],cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
+#df=na.omit(data.frame(prs[i,],&quot;cad&quot;=ifelse(rowSums(cov[i,c(&quot;Prev_Coronary_Artery_Disease_HARD&quot;,                                           &quot;Incd_Coronary_Artery_Disease_HARD&quot;)])&gt;0,1,0),cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
 
-df$SCORESUM=-1*df$SCORESUM</code></pre>
+
+#df=na.omit(data.frame(prs[i,],&quot;cad&quot;=cov[i,c(&quot;Prev_Coronary_Artery_Disease_HARD&quot;)                                 ],cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
+           
+df=na.omit(data.frame(prs[i,],&quot;cad&quot;=cov[i,c(&quot;Incd_Coronary_Artery_Disease_HARD&quot;)                                ],cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
+
+df$SCORESUM=-1*df$SCORESUM
+saveRDS(df,&quot;~/Dropbox/df_ukb.rds&quot;)</code></pre>
 <pre class="r"><code>df=readRDS(&quot;~/Dropbox/df_ukb.rds&quot;)
 head(df)</code></pre>
 <pre><code>        FID     IID PHENO     CNT    CNT2 SCORESUM cad      PC1     PC2
@@ -754,32 +777,32 @@ head(df)</code></pre>
 3505382   0 3505382    -9 5988138 3008018 -15.1253   1 -12.0046 2.83783
 2363750   0 2363750    -9 5988140 3029080 -15.1855   0 -12.8365 4.92501
 3144043   0 3144043    -9 5988140 3015977 -15.0858   0 -12.5234 1.47994
-1654411   0 1654411    -9 5988138 3006256 -15.0217   0 -10.8585 5.43386
 1761006   0 1761006    -9 5988140 3006698 -15.1536   0 -12.3393 1.43565
-              PC3       PC4       PC5  LDL_adj    TG_adj   TC_adj AGE SEX
-5242202 -3.379320  0.514730 -8.576770 129.3227 103.27724 185.8082  60   1
-3505382 -1.389230 -0.221419 -9.615220 160.7557 209.74314 223.4629  69   1
-2363750 -2.777050  6.334590 -3.399210 130.2011  76.08503 220.1856  58   1
-3144043 -1.595140  4.584990 12.096200  95.0116  63.68468 193.1941  45   0
-1654411  0.516084  0.985193 -0.696523 149.8453  87.15678 233.0240  43   1
-1761006 -3.092750  0.502698 -3.188080 167.7881 259.61028 271.3457  62   0</code></pre>
+2624279   0 2624279    -9 5988138 3011451 -15.1172   0 -12.4905 2.35608
+              PC3       PC4      PC5  LDL_adj    TG_adj   TC_adj AGE SEX
+5242202 -3.379320  0.514730 -8.57677 129.3227 103.27724 185.8082  60   1
+3505382 -1.389230 -0.221419 -9.61522 160.7557 209.74314 223.4629  69   1
+2363750 -2.777050  6.334590 -3.39921 130.2011  76.08503 220.1856  58   1
+3144043 -1.595140  4.584990 12.09620  95.0116  63.68468 193.1941  45   0
+1761006 -3.092750  0.502698 -3.18808 167.7881 259.61028 271.3457  62   0
+2624279 -0.856832 -2.103760 -8.43209 141.4153  79.98229 240.9126  54   0</code></pre>
 <p>Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Now, let’s fit some simple logistic regression:</p>
 <pre class="r"><code>pr_logit=glm(df$cad~df$SCORESUM)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
 
 exp(coef(pr_logit))</code></pre>
 <pre><code>(Intercept) df$SCORESUM 
-  13.397203    1.183441 </code></pre>
+   1.932069    1.043249 </code></pre>
 <pre class="r"><code>ldl_logit=glm(df$cad~df$LDL_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
 
 exp(coef(ldl_logit))</code></pre>
 <pre><code>(Intercept)  df$LDL_adj 
-   1.018136    1.000172 </code></pre>
+  0.9950394   1.0001507 </code></pre>
 <pre class="r"><code>tc_logit=glm(df$cad~df$TC_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
 
 
 exp(coef(tc_logit))</code></pre>
 <pre><code>(Intercept)   df$TC_adj 
-  1.0904007   0.9998101 </code></pre>
+   1.008315    1.000038 </code></pre>
 <p>##Considering Risk</p>
 <p>Now, let’s consider how the oR of CAD increases with each quantile of PRS and med-adjusted LDL:</p>
 <p>Recall that to convert to quantile, simply subtract mean and divide by SD.</p>
@@ -962,8 +985,8 @@ Your Name
 <p>So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.</p>
 <p>Let’s consider how the distribution of LDLand PRS looks for individuals with and without CAD:</p>
 <pre class="r"><code>par(mfrow=c(1,2))
-boxplot(df$LDL_adj[df$cad==0],main=&quot;Distribution of LDL-adjusted by CAD 0&quot;,xlab=&quot;CAD=0&quot;)
-boxplot(df$LDL_adj[df$cad==1],main=&quot;Distribution of LDL-adjusted by CAD = 1&quot;,xlab=&quot;CAD=1&quot;)</code></pre>
+boxplot(df$LDL_adj[df$cad==0],main=&quot;Distribution of LDL-adjusted, CAD = 0&quot;,xlab=&quot;CAD=0&quot;,cex=1)
+boxplot(df$LDL_adj[df$cad==1],main=&quot;Distribution of LDL-adjusted, CAD = 1&quot;,xlab=&quot;CAD=1&quot;,cex=1)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1003,8 +1026,8 @@ Your Name
 </div>
 </div>
 <pre class="r"><code>par(mfrow=c(1,2))
-boxplot(r[df$cad==0],main=&quot;Distribution of PRS Quantile by CAD = 0&quot;,xlab=&quot;CAD=0&quot;)
-boxplot(r[df$cad==1],main=&quot;Distribution of PRS Quantile by CAD = 1&quot;,xlab=&quot;CAD=1&quot;)</code></pre>
+boxplot(r[df$cad==0],main=&quot;Distribution of PRS Quantile, CAD = 0&quot;,xlab=&quot;CAD=0&quot;)
+boxplot(r[df$cad==1],main=&quot;Distribution of PRS Quantile, CAD = 1&quot;,xlab=&quot;CAD=1&quot;)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
@@ -1046,11 +1069,11 @@ Your Name
 <p>To answer the question: at what quantiles is the risk predicted by PRS equivalnet to LDL&gt;190, first we find the risk equivalency of LDL&gt;190:</p>
 <pre class="r"><code>m=min(l[which(df$LDL_adj&gt;190)])
 m</code></pre>
-<pre><code>[1] 1.052058</code></pre>
+<pre><code>[1] 1.023955</code></pre>
 <p>Now, we ask which quantils of PRS risk are greater than or equal to this:</p>
 <pre class="r"><code>min(r[which(p&gt;m)])</code></pre>
-<pre><code>[1] 0.679349</code></pre>
-<p>So the 67% of PRS risk is equivalent to LDL &gt;190.</p>
+<pre><code>[1] 0.941356</code></pre>
+<p>So the 0.94 of PRS risk is equivalent to LDL &gt;190.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
