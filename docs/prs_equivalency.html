@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree89a94b13e069df37501228219ca5babe9687a45btargetblank89a94b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/89a94b13e069df37501228219ca5babe9687a45b" target="_blank">89a94b1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreea122343924807e3eba2f811d852daaaaa88ea8a2targetblanka122343a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/a122343924807e3eba2f811d852daaaaa88ea8a2" target="_blank">a122343</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree89a94b13e069df37501228219ca5babe9687a45btargetblank89a94b1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreea122343924807e3eba2f811d852daaaaa88ea8a2targetblanka122343a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/89a94b13e069df37501228219ca5babe9687a45b" target="_blank">89a94b1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/a122343924807e3eba2f811d852daaaaa88ea8a2" target="_blank">a122343</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -483,6 +483,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/a122343924807e3eba2f811d852daaaaa88ea8a2/docs/prs_equivalency.html" target="_blank">a122343</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-13
+</td>
+<td>
+with incident
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1025,8 +1042,8 @@ Your Name
 <p>So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.</p>
 <p>Let’s consider how the distribution of LDLand PRS looks for individuals with and without CAD:</p>
 <pre class="r"><code>par(mfrow=c(1,2))
-boxplot(df$LDL_adj[df$cad==0],main=&quot;Distribution of LDL-adjusted, CAD = 0&quot;,xlab=&quot;CAD=0&quot;,cex=1)
-boxplot(df$LDL_adj[df$cad==1],main=&quot;Distribution of LDL-adjusted, CAD = 1&quot;,xlab=&quot;CAD=1&quot;,cex=1)</code></pre>
+boxplot(df$LDL_adj[df$cad==0],main=&quot;Dist LDL-adjusted,INCD_CAD = 0&quot;,xlab=&quot;Incd_CAD=0&quot;,cex=1)
+boxplot(df$LDL_adj[df$cad==1],main=&quot;Dist LDL-adjusted,INCD_CAD = 1&quot;,xlab=&quot;Inc_CAD=1&quot;,cex=1)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
@@ -1066,8 +1083,8 @@ Your Name
 </div>
 </div>
 <pre class="r"><code>par(mfrow=c(1,2))
-boxplot(r[df$cad==0],main=&quot;Distribution of PRS Quantile, CAD = 0&quot;,xlab=&quot;CAD=0&quot;)
-boxplot(r[df$cad==1],main=&quot;Distribution of PRS Quantile, CAD = 1&quot;,xlab=&quot;CAD=1&quot;)</code></pre>
+boxplot(r[df$cad==0],main=&quot;Dist of PRS Quantile, INCD_CAD = 0&quot;,xlab=&quot;CAD=0&quot;)
+boxplot(r[df$cad==1],main=&quot;Dist of PRS Quantile, INCD_CAD = 1&quot;,xlab=&quot;CAD=1&quot;)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
