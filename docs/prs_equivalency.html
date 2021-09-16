@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-09-13
+<strong>Last updated:</strong> 2021-09-16
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreea122343924807e3eba2f811d852daaaaa88ea8a2targetblanka122343a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/a122343924807e3eba2f811d852daaaaa88ea8a2" target="_blank">a122343</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreeb267cf260891cc321fd60154204bf057cda0f601targetblankb267cf2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/b267cf260891cc321fd60154204bf057cda0f601" target="_blank">b267cf2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreea122343924807e3eba2f811d852daaaaa88ea8a2targetblanka122343a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreeb267cf260891cc321fd60154204bf057cda0f601targetblankb267cf2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/a122343924807e3eba2f811d852daaaaa88ea8a2" target="_blank">a122343</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/b267cf260891cc321fd60154204bf057cda0f601" target="_blank">b267cf2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -483,6 +483,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/b267cf260891cc321fd60154204bf057cda0f601/docs/prs_equivalency.html" target="_blank">b267cf2</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-13
+</td>
+<td>
+with incident
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -803,162 +820,96 @@ wflow_publish("analysis/prs_equivalency.Rmd")
 <pre class="r"><code>rm(list=ls())
 prs=read.table(&quot;~/Dropbox/cad_AnnoPred.profile&quot;,header=T)
 cov=read.table(&quot;~/Dropbox/big_ukb_file.txt&quot;,header=T,sep=&quot;\t&quot;)
-ukb_adj_cov=read.table(&quot;~/Dropbox/PRS_gwas_mashr/UKB.4700.adj.cov&quot;,header=T)
+ukb_adj_cov=read.table(&quot;~/Dropbox/ukbb-lipids-meds.txt&quot;,sep = &quot;\t&quot;,header = T)
 
 
-i=as.character(intersect(intersect(prs$IID,cov$id),ukb_adj_cov$FID))
+i=as.character(intersect(intersect(prs$IID,cov$id),ukb_adj_cov$eid))
 
 rownames(prs)=prs$IID
 rownames(cov)=cov$id
-rownames(ukb_adj_cov)=ukb_adj_cov$FID
+rownames(ukb_adj_cov)=ukb_adj_cov$eid
 
-#df=na.omit(data.frame(prs[i,],&quot;cad&quot;=ifelse(rowSums(cov[i,c(&quot;Prev_Coronary_Artery_Disease_HARD&quot;,                                           &quot;Incd_Coronary_Artery_Disease_HARD&quot;)])&gt;0,1,0),cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
-
-
-#df=na.omit(data.frame(prs[i,],&quot;cad&quot;=cov[i,c(&quot;Prev_Coronary_Artery_Disease_HARD&quot;)                                 ],cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
-           
-df=na.omit(data.frame(prs[i,],&quot;cad&quot;=cov[i,c(&quot;Incd_Coronary_Artery_Disease_HARD&quot;)                                ],cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],ukb_adj_cov[i,c(3:7)]))
+df=na.omit(data.frame(prs[i,],&quot;age&quot;=cov[i,&quot;age&quot;],&quot;sex&quot;=cov[i,&quot;Sex&quot;],&quot;cad&quot;=cov[i,&quot;Incd_Coronary_Artery_Disease_HARD&quot;],cov[i,c(&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)],&quot;ldladj&quot;=ukb_adj_cov[i,&quot;ldladj&quot;]))
 
 df$SCORESUM=-1*df$SCORESUM
-saveRDS(df,&quot;~/Dropbox/df_ukb.rds&quot;)</code></pre>
+
+df$prs_quant=(df$SCORESUM-mean(df$SCORESUM))/sd(df$SCORESUM)
+df$sex=as.factor(ifelse(df$sex==&quot;Male&quot;,1,0))
+df$ldl_fact=as.factor(ifelse(df$ldladj&gt;190,1,0))
+saveRDS(df,&quot;~/Dropbox/df_ukb.rds&quot;)
+
+
+library(corrplot)
+corrplot(correlations, method=&quot;circle&quot;)
+correlations &lt;- cor(df[,c(6,7,9,14)])
+corrplot(correlations, method=&quot;circle&quot;)</code></pre>
 <pre class="r"><code>df=readRDS(&quot;~/Dropbox/df_ukb.rds&quot;)
 head(df)</code></pre>
-<pre><code>        FID     IID PHENO     CNT    CNT2 SCORESUM cad      PC1     PC2
-5242202   0 5242202    -9 5988134 3026087 -15.1677   0 -11.3162 3.79643
-3505382   0 3505382    -9 5988138 3008018 -15.1253   1 -12.0046 2.83783
-2363750   0 2363750    -9 5988140 3029080 -15.1855   0 -12.8365 4.92501
-3144043   0 3144043    -9 5988140 3015977 -15.0858   0 -12.5234 1.47994
-1761006   0 1761006    -9 5988140 3006698 -15.1536   0 -12.3393 1.43565
-2624279   0 2624279    -9 5988138 3011451 -15.1172   0 -12.4905 2.35608
-              PC3       PC4      PC5  LDL_adj    TG_adj   TC_adj AGE SEX
-5242202 -3.379320  0.514730 -8.57677 129.3227 103.27724 185.8082  60   1
-3505382 -1.389230 -0.221419 -9.61522 160.7557 209.74314 223.4629  69   1
-2363750 -2.777050  6.334590 -3.39921 130.2011  76.08503 220.1856  58   1
-3144043 -1.595140  4.584990 12.09620  95.0116  63.68468 193.1941  45   0
-1761006 -3.092750  0.502698 -3.18808 167.7881 259.61028 271.3457  62   0
-2624279 -0.856832 -2.103760 -8.43209 141.4153  79.98229 240.9126  54   0</code></pre>
-<p>Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Now, let’s fit some simple logistic regression:</p>
-<pre class="r"><code>pr_logit=glm(df$cad~df$SCORESUM)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+<pre><code>        FID     IID PHENO     CNT    CNT2 SCORESUM age sex cad      PC1     PC2
+3463778   0 3463778    -9 5988140 3025432 -15.3303  41   1   0 -12.1725 5.39163
+2821197   0 2821197    -9 5988140 3021862 -15.1161  46   0   0 -13.0245 6.41514
+1514525   0 1514525    -9 5988140 3003038 -15.0992  52   0   0 -11.4712 3.48383
+2491905   0 2491905    -9 5988140 3007614 -15.0719  65   0   0 -12.1327 4.02976
+3250377   0 3250377    -9 5988136 3021081 -15.0467  56   0   0 -12.2171 3.50821
+3961891   0 3961891    -9 5988140 3030117 -15.1423  41   0   0 -11.2134 3.85010
+              PC3       PC4      PC5   ldladj  prs_quant ldl_fact
+3463778 -1.281030  0.841765 -5.26521 133.9134 -1.7799024        0
+2821197 -0.183365  2.927610 -5.88964 216.2800  0.3911755        1
+1514525 -1.154580  3.083830  7.65160 108.8554  0.5624697        0
+2491905 -0.988080  0.750294 -2.36431 183.0240  0.8391757        0
+3250377 -1.625990 -1.226800 -5.34580 173.8206  1.0945967        0
+3961891 -2.734880  0.286941  1.47179 123.8979  0.1256188        0</code></pre>
+<p>Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Let’s create a factor to call LDL greater or less than 190. Now, let’s fit some simple logistic regression. Here’s the Logistic with factor</p>
+<pre class="r"><code>glm.fit=glm(df$cad~df$prs_quant+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$age+df$sex+df$ldl_fact,family=binomial)
+exp(coef(glm.fit))</code></pre>
+<pre><code> (Intercept) df$prs_quant       df$PC1       df$PC2       df$PC3       df$PC4 
+8.709713e-05 1.569048e+00 1.000485e+00 1.001550e+00 1.005620e+00 1.002337e+00 
+      df$PC5       df$age      df$sex1 df$ldl_fact1 
+1.013170e+00 1.078835e+00 3.473346e+00 1.806006e+00 </code></pre>
+<pre class="r"><code>glm.ldl=glm(df$cad~df$ldl_fact,family=binomial)
+exp(coef(glm.ldl))</code></pre>
+<pre><code> (Intercept) df$ldl_fact1 
+  0.01679426   1.98155066 </code></pre>
+<pre class="r"><code>glm.prs=glm(df$cad~df$prs_quant,family=binomial)
+exp(coef(glm.prs))</code></pre>
+<pre><code> (Intercept) df$prs_quant 
+  0.01679206   1.52297095 </code></pre>
+<pre class="r"><code>s=sample(seq(1,length(df$prs_quant)),100000)
+r=(rank(df$prs_quant)/length(df$prs_quant))
 
-exp(coef(pr_logit))</code></pre>
-<pre><code>(Intercept) df$SCORESUM 
-   1.932069    1.043249 </code></pre>
-<pre class="r"><code>ldl_logit=glm(df$cad~df$LDL_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+plot(df$prs_quant[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main=&quot;Conditional OR CAD for PRS_quantile&quot;,xlab=&#39;PRSQuant&#39;,ylab=&quot;Conditional OR&quot;)
+abline(h=exp(coef(glm.ldl)[[2]]))
+abline(v=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]])</code></pre>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>q=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]]
 
-exp(coef(ldl_logit))</code></pre>
-<pre><code>(Intercept)  df$LDL_adj 
-  0.9950394   1.0001507 </code></pre>
-<pre class="r"><code>tc_logit=glm(df$cad~df$TC_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+w=which(df$prs_quant&gt;q)
+t=which.min(df$prs_quant[w])
+r[w[t]]</code></pre>
+<pre><code>[1] 0.9488554</code></pre>
+<p>This means we’d need a PRS quantile of 1.6257187 which corresponds to the 0.9488554 percentile!</p>
+<pre><code>
+And here&#39;s as continuousl
 
+```r
+glm.cont=glm(as.factor(df$cad)~df$prs_quant+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$age+df$sex+df$ldladj,family=binomial)
+exp(coef(glm.cont))</code></pre>
+<pre><code> (Intercept) df$prs_quant       df$PC1       df$PC2       df$PC3       df$PC4 
+2.868494e-05 1.548106e+00 1.000609e+00 1.001456e+00 1.005680e+00 1.002693e+00 
+      df$PC5       df$age      df$sex1    df$ldladj 
+1.013404e+00 1.077539e+00 3.543448e+00 1.008221e+00 </code></pre>
+<p>We can also fit with only one term at a time:</p>
+<pre class="r"><code>pr.logit=glm(df$cad~df$prs_quant,family=binomial)
 
-exp(coef(tc_logit))</code></pre>
-<pre><code>(Intercept)   df$TC_adj 
-   1.008315    1.000038 </code></pre>
-<p>##Considering Risk</p>
-<p>Now, let’s consider how the oR of CAD increases with each quantile of PRS and med-adjusted LDL:</p>
-<p>Recall that to convert to quantile, simply subtract mean and divide by SD.</p>
-<pre class="r"><code>prs_quantiles=(df$SCORESUM-mean(df$SCORESUM))/sd(df$SCORESUM)
-ldl_quantiles=(df$LDL_adj-mean(df$LDL_adj))/sd(df$LDL_adj)
-
-### Now predict the model fit
-p=exp(predict(pr_logit))
-l=exp(predict(ldl_logit))
-
-
-r=(rank(df$SCORESUM)/length(df$SCORESUM))
-m=min(l[which(df$LDL_adj&gt;190)])
-t=min(r[which(p&gt;m)])</code></pre>
-<p>##Predicting Risk</p>
-<p>Now, we wish to consider how the quantiles of PRS risk compare to LDL, and how a model which includes only PRS or ldl_adjusted compares with cumulative distribution functions:</p>
-<pre class="r"><code>par(mfrow=c(1,2))
-
-plot((rank(df$SCORESUM)/length(df$SCORESUM)),p,
-main=&quot;predicted risk vs PRS quantiles&quot;,ylab=&quot;Predicted Risk of CAD&quot;,ylim=c(0.90,1.20),xlab=&quot;quantile&quot;)
-abline(v=t)
-#plot(rank(df$LDL_adj)/length(df$LDL_adj),l,main=&quot;predicted risk vs LDL-adj quantiles&quot;,ylab=&quot;Predicted risk of CAD&quot;,ylim=c(0.90,1.20),xlab=&quot;quantile&quot;)
-plot(df$LDL_adj,l,main=&quot;predicted risk vs LDL-adj&quot;,ylab=&quot;Predicted risk of CAD&quot;,ylim=c(0.90,1.20))
-abline(v=190)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/eeb3abd744b230be33e84a3c3bc6e8131aa3e9a1/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" target="_blank">eeb3abd</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-12
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/db7e138719c25e0f606e5a172c3eb46859a75c5d/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" target="_blank">db7e138</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/8a3acc70f8f4fb84a154dd2261c00696a4aa11a5/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" target="_blank">8a3acc7</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/eb2ea1afd50980e17d3b36ddca503218eda40ca1/docs/figure/prs_equivalency.Rmd/unnamed-chunk-5-1.png" target="_blank">eb2ea1a</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Now I consider discriminant analysis: how does the distirbution of CAD and LDL score discriminate between CAD and CAD free folks:</p>
-<pre class="r"><code>r=(rank(df$SCORESUM)/length(df$SCORESUM))
-par(mfrow=c(1,2))
-plot(density(r[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Score Distribution by CAD class&quot;,xlab=&quot;Quantile Score&quot;)
-lines(density(r[df$cad==0]),col=&quot;green&quot;)
-legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
-
-plot(density(df$LDL_adj[df$cad==0]),col=&quot;green&quot;,main=&quot;LDL_adj Distribution by CAD class&quot;,xlab=&quot;LDL-adjusted&quot;)
-lines(density(df$LDL_adj[df$cad==1]),col=&quot;red&quot;)
-legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)</code></pre>
+exp(coef(pr.logit))</code></pre>
+<pre><code> (Intercept) df$prs_quant 
+  0.01679206   1.52297095 </code></pre>
+<pre class="r"><code>pr.logit.cond=glm(df$cad~df$SCORESUM,binomial(link = &quot;logit&quot;))
+exp(coef(pr.logit.cond))</code></pre>
+<pre><code> (Intercept)  df$SCORESUM 
+1.937781e+26 7.107499e+01 </code></pre>
+<p>We can examine the distribution of each feature by CAD:</p>
+<pre class="r"><code>barplot(quantile(df[df$cad==0,&quot;ldladj&quot;],probs=seq(0,1,by=0.1)),main=&quot;Adjuste_LDLbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -997,10 +948,19 @@ Your Name
 </table>
 </div>
 </div>
-<p>And now we consider the cumulative distribution of Predicted CAD risk using only PRS or LDL-adjusted as predictors:</p>
+<pre class="r"><code>barplot(quantile(df[df$cad==1,&quot;ldladj&quot;],probs=seq(0,1,by=0.1)),main=&quot;Adjuste_LDLbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)</code></pre>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>barplot(quantile(df[df$cad==0,&quot;prs_quant&quot;],probs=seq(0,1,by=0.1)),main=&quot;Prs_quantbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)
+lines(quantile(df[df$cad==1,&quot;prs_quant&quot;],probs=seq(0,1,by=0.1)),main=&quot;PRS_quantbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)</code></pre>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>##Predicting Risk</p>
+<p>First consider discriminant analysis: how does the distirbution of CAD and LDL score discriminate between CAD and CAD free folks:</p>
 <pre class="r"><code>par(mfrow=c(1,2))
-plot(ecdf(p),main=&quot;CDF of predicted risk using PRS&quot;,xlab=&quot;Predicted Risk&quot;)
-plot(ecdf(l),main=&quot;CDF of predicted risk usingLDL-adjusted&quot;,xlab=&quot;Predicted Risk&quot;)</code></pre>
+plot(density(r[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Quantile by CAD class&quot;,xlab=&quot;Quantile&quot;)
+lines(density(r[df$cad==0]),col=&quot;green&quot;)
+legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
+
+par(mfrow=c(1,3))</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
@@ -1039,98 +999,19 @@ Your Name
 </table>
 </div>
 </div>
-<p>So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.</p>
-<p>Let’s consider how the distribution of LDLand PRS looks for individuals with and without CAD:</p>
-<pre class="r"><code>par(mfrow=c(1,2))
-boxplot(df$LDL_adj[df$cad==0],main=&quot;Dist LDL-adjusted,INCD_CAD = 0&quot;,xlab=&quot;Incd_CAD=0&quot;,cex=1)
-boxplot(df$LDL_adj[df$cad==1],main=&quot;Dist LDL-adjusted,INCD_CAD = 1&quot;,xlab=&quot;Inc_CAD=1&quot;,cex=1)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
-Past versions of unnamed-chunk-8-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/13717f62424297e5e2334e6db2b6858cbdcbb122/docs/figure/prs_equivalency.Rmd/unnamed-chunk-8-1.png" target="_blank">13717f6</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>par(mfrow=c(1,2))
-boxplot(r[df$cad==0],main=&quot;Dist of PRS Quantile, INCD_CAD = 0&quot;,xlab=&quot;CAD=0&quot;)
-boxplot(r[df$cad==1],main=&quot;Dist of PRS Quantile, INCD_CAD = 1&quot;,xlab=&quot;CAD=1&quot;)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-8-2.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-2">
-Past versions of unnamed-chunk-8-2.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-8-2" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/13717f62424297e5e2334e6db2b6858cbdcbb122/docs/figure/prs_equivalency.Rmd/unnamed-chunk-8-2.png" target="_blank">13717f6</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>To answer the question: at what quantiles is the risk predicted by PRS equivalnet to LDL&gt;190, first we find the risk equivalency of LDL&gt;190:</p>
-<pre class="r"><code>m=min(l[which(df$LDL_adj&gt;190)])
-m</code></pre>
-<pre><code>[1] 1.023955</code></pre>
-<p>Now, we ask which quantils of PRS risk are greater than or equal to this:</p>
-<pre class="r"><code>min(r[which(p&gt;m)])</code></pre>
-<pre><code>[1] 0.941356</code></pre>
-<p>So the 0.94 of PRS risk is equivalent to LDL &gt;190.</p>
+<pre class="r"><code>plot(density(df$prs_quant[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Z_Score Distribution by CAD class&quot;,xlab=&quot;Z_Score&quot;)
+lines(density(df$prs_quant[df$cad==0]),col=&quot;green&quot;)
+legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
+
+plot(density(df$ldladj[df$cad==0]),col=&quot;green&quot;,main=&quot;LDL_adj Distribution by CAD class&quot;,xlab=&quot;LDL-adjusted&quot;)
+lines(density(df$ldladj[df$cad==1]),col=&quot;red&quot;)
+legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
+
+zldl=df$ldladj-mean(df$ldladj)/sd(df$ldladj)
+plot(density(zldl[df$cad==0]),col=&quot;green&quot;,main=&quot;Z_ldl by CAD&quot;,xlab=&quot;Z-Ldl&quot;)
+lines(density(df$ldladj[df$cad==1]),col=&quot;red&quot;)
+legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)</code></pre>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1153,20 +1034,17 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
-[1] workflowr_1.6.2
-
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.7        whisker_0.4       knitr_1.33        magrittr_2.0.1   
- [5] R6_2.5.0          rlang_0.4.11      fansi_0.5.0       highr_0.9        
- [9] stringr_1.4.0     tools_4.0.2       xfun_0.24         utf8_1.2.2       
-[13] git2r_0.28.0      jquerylib_0.1.4   htmltools_0.5.1.1 ellipsis_0.3.2   
-[17] rprojroot_2.0.2   yaml_2.2.1        digest_0.6.27     tibble_3.1.3     
-[21] lifecycle_1.0.0   crayon_1.4.1      later_1.2.0       sass_0.4.0       
-[25] vctrs_0.3.8       promises_1.2.0.1  fs_1.5.0          glue_1.4.2       
-[29] evaluate_0.14     rmarkdown_2.9     stringi_1.7.3     bslib_0.2.5.1    
-[33] compiler_4.0.2    pillar_1.6.1      jsonlite_1.7.2    httpuv_1.6.1     
-[37] pkgconfig_2.0.3  </code></pre>
+ [5] workflowr_1.6.2   R6_2.5.0          rlang_0.4.11      fansi_0.5.0      
+ [9] highr_0.9         stringr_1.4.0     tools_4.0.2       xfun_0.24        
+[13] utf8_1.2.2        git2r_0.28.0      jquerylib_0.1.4   htmltools_0.5.1.1
+[17] ellipsis_0.3.2    rprojroot_2.0.2   yaml_2.2.1        digest_0.6.27    
+[21] tibble_3.1.3      lifecycle_1.0.0   crayon_1.4.1      later_1.2.0      
+[25] sass_0.4.0        vctrs_0.3.8       promises_1.2.0.1  fs_1.5.0         
+[29] glue_1.4.2        evaluate_0.14     rmarkdown_2.9     stringi_1.7.3    
+[33] compiler_4.0.2    bslib_0.2.5.1     pillar_1.6.1      jsonlite_1.7.2   
+[37] httpuv_1.6.1      pkgconfig_2.0.3  </code></pre>
 </div>
 </div>
 
