@@ -23,124 +23,85 @@ First, we organize the data:
 rm(list=ls())
 prs=read.table("~/Dropbox/cad_AnnoPred.profile",header=T)
 cov=read.table("~/Dropbox/big_ukb_file.txt",header=T,sep="\t")
-ukb_adj_cov=read.table("~/Dropbox/PRS_gwas_mashr/UKB.4700.adj.cov",header=T)
+ukb_adj_cov=read.table("~/Dropbox/ukbb-lipids-meds.txt",sep = "\t",header = T)
 
 
-i=as.character(intersect(intersect(prs$IID,cov$id),ukb_adj_cov$FID))
+i=as.character(intersect(intersect(prs$IID,cov$id),ukb_adj_cov$eid))
 
 rownames(prs)=prs$IID
 rownames(cov)=cov$id
-rownames(ukb_adj_cov)=ukb_adj_cov$FID
+rownames(ukb_adj_cov)=ukb_adj_cov$eid
 
-df=na.omit(data.frame(prs[i,],"cad"=cov[i,"Coronary_Artery_Disease"],cov[i,c("PC1","PC2","PC3","PC4","PC5")],ukb_adj_cov[i,c(3:7)]))
+df=na.omit(data.frame(prs[i,],"age"=cov[i,"age"],"sex"=cov[i,"Sex"],"cad"=cov[i,"Incd_Coronary_Artery_Disease_HARD"],cov[i,c("PC1","PC2","PC3","PC4","PC5")],"ldladj"=ukb_adj_cov[i,"ldladj"]))
 
 df$SCORESUM=-1*df$SCORESUM
+
+df$prs_quant=(df$SCORESUM-mean(df$SCORESUM))/sd(df$SCORESUM)
+df$sex=as.factor(ifelse(df$sex=="Male",1,0))
+df$ldl_fact=as.factor(ifelse(df$ldladj>190,1,0))
+saveRDS(df,"~/Dropbox/df_ukb.rds")
 ```
 
 ```{r}
 df=readRDS("~/Dropbox/df_ukb.rds")
 head(df)
+library(corrplot)
+correlations <- cor(df[,c("ldladj","prs_quant","age","cad","PC1","PC2","PC3","PC4","PC5")])
+corrplot(correlations, method="circle")
 ```
 
-
-Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Now, let's fit some simple logistic regression:
+Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Let's create a factor to call LDL greater or less than 190. Now, let's fit some simple logistic regression. Here's the Logistic with factor
 
 ```{r}
-pr_logit=glm(df$cad~df$SCORESUM)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+glm.fit=glm(df$cad~df$prs_quant+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$age+df$sex+df$ldl_fact,family=binomial)
+exp(coef(glm.fit))
 
-exp(coef(pr_logit))
+glm.ldl=glm(df$cad~df$ldl_fact,family=binomial)
+exp(coef(glm.ldl))
 
-ldl_logit=glm(df$cad~df$LDL_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+glm.prs=glm(df$cad~df$prs_quant,family=binomial)
+exp(coef(glm.prs))
 
-exp(coef(ldl_logit))
+s=sample(seq(1,length(df$prs_quant)),100000)
+r=(rank(df$prs_quant)/length(df$prs_quant))
 
+plot(df$prs_quant[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main="Conditional OR CAD for PRS_quantile",xlab='PRS_Quantile',ylab="Conditional OR")
+abline(h=exp(coef(glm.ldl)[[2]]),col="red",pch=1)
+abline(v=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]],pch=2,col="green")
+legend("topleft",c("OR_LDL>190","PRS_quantile"),col=c("red","green"),fill=c("red","green"))
 
-tc_logit=glm(df$cad~df$TC_adj)#+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$AGE+df$SEX)
+q=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]]
 
-
-exp(coef(tc_logit))
+w=which(df$prs_quant>q)
+t=which.min(df$prs_quant[w])
+r[w[t]]
 ```
 
-##Considering Risk
+This means we'd need a PRS quantile of `r coef(glm.ldl)[[2]]/coef(glm.prs)[[2]]` which corresponds to the `r r[w[t]]` percentile!
 
-Now, let's consider how the oR of CAD increases with each quantile of PRS and med-adjusted LDL:
 
-Recall that to convert to quantile, simply subtract mean and divide by SD.
 
+## Predicting Risk
+
+First consider discriminant analysis: how does the distirbution of CAD and LDL score discriminate between CAD and CAD free folks:
 ```{r}
-prs_quantiles=(df$SCORESUM-mean(df$SCORESUM))/sd(df$SCORESUM)
-ldl_quantiles=(df$LDL_adj-mean(df$LDL_adj))/sd(df$LDL_adj)
-
-### Now predict the model fit
-p=exp(predict(pr_logit))
-l=exp(predict(ldl_logit))
-
-```
-
-##Predicting Risk
-
-Now, we wish to consider how the quantiles of PRS risk compare to LDL, and how a model which includes only PRS or ldl_adjusted compares with cumulative distribution functions:
-
-
-```{r}
-
+# 
+# par(mfrow=c(1,2))
+# plot(density(r[df$cad==1]),col="red",main="PRS Quantile by CAD class",xlab="Quantile")
+# lines(density(r[df$cad==0]),col="green")
+# legend("bottomright",c("cad free","cad present"),col=c("green","red"),pch=1)
 
 par(mfrow=c(1,3))
-
-plot((rank(df$SCORESUM)/length(df$SCORESUM)),p,
-main="predicted risk vs PRS quantiles",ylab="Predicted Risk of CAD",ylim=c(0.90,1.20),xlab="quantile")
-plot(rank(df$LDL_adj)/length(df$LDL_adj),l,main="predicted risk vs LDL-adj quantiles",ylab="Predicted risk of CAD",ylim=c(0.90,1.20),xlab="quantile")
-plot(df$LDL_adj,l,main="predicted risk vs LDL-adj",ylab="Predicted risk of CAD",ylim=c(0.90,1.20))
-abline(v=190)
-```
-
-Now I consider discriminant analysis: how does the distirbution of CAD and LDL score discriminate between CAD and CAD free folks:
-```{r}
-r=(rank(df$SCORESUM)/length(df$SCORESUM))
-par(mfrow=c(1,2))
-plot(density(r[df$cad==1]),col="red",main="PRS Score Distribution by CAD class",xlab="Quantile Score")
-lines(density(r[df$cad==0]),col="green")
+plot(density(df$prs_quant[df$cad==1]),col="red",main="PRS Z_Score Distribution by CAD class",xlab="Z_Score")
+lines(density(df$prs_quant[df$cad==0]),col="green")
 legend("bottomright",c("cad free","cad present"),col=c("green","red"),pch=1)
 
-plot(density(df$LDL_adj[df$cad==0]),col="green",main="LDL Value Distribution by CAD class",xlab="quantile LDL-adjusted")
-lines(density(df$LDL_adj[df$cad==1]),col="red")
+plot(density(df$ldladj[df$cad==0]),col="green",main="LDL_adj Distribution by CAD class",xlab="LDL-adjusted")
+lines(density(df$ldladj[df$cad==1]),col="red")
+legend("bottomright",c("cad free","cad present"),col=c("green","red"),pch=1)
+
+zldl=df$ldladj-mean(df$ldladj)/sd(df$ldladj)
+plot(density(zldl[df$cad==0]),col="green",main="Z_ldl by CAD",xlab="Z-Ldl")
+lines(density(df$ldladj[df$cad==1]),col="red")
 legend("bottomright",c("cad free","cad present"),col=c("green","red"),pch=1)
 ```
-
-And now we consider the cumulative distribution of Predicted CAD risk using only PRS or LDL-adjusted as predictors:
-
-```{r}
-par(mfrow=c(1,2))
-plot(ecdf(p),main="CDF of predicted risk using PRS",xlab="Predicted Risk")
-plot(ecdf(l),main="CDF of predicted risk usingLDL-adjusted",xlab="Predicted Risk")
-```
-
-
-So, the 50% of LDL and PRS are roughly equivalent in a univariate probit model estimating risk of CAD.
-
-Let's consider how the distribution of LDLand PRS looks for individuals with and without CAD:
-
-```{r}
-par(mfrow=c(1,2))
-boxplot(df$LDL_adj[df$cad==0],main="Distribution of LDL-adjusted by CAD 0",xlab="CAD=0")
-boxplot(df$LDL_adj[df$cad==1],main="Distribution of LDL-adjusted by CAD = 1",xlab="CAD=1")
-
-
-par(mfrow=c(1,2))
-boxplot(r[df$cad==0],main="Distribution of PRS Quantile by CAD = 0",xlab="CAD=0")
-boxplot(r[df$cad==1],main="Distribution of PRS Quantile by CAD = 1",xlab="CAD=1")
-```
-
-To answer the question: at what quantiles is the risk predicted by PRS equivalnet to LDL>190,
-first we find the risk equivalency of LDL>190:
-
-```{r}
-m=min(l[which(df$LDL_adj>190)])
-m
-```
-
-Now, we ask which quantils of PRS risk are greater than or equal to this:
-```{r}
-min(r[which(p>m)])
-```
-So the 67% of PRS risk is equivalent to LDL >190.
