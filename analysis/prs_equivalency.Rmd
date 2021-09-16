@@ -100,8 +100,8 @@ plot(density(df$ldladj[df$cad==0]),col="green",main="LDL_adj Distribution by CAD
 lines(density(df$ldladj[df$cad==1]),col="red")
 legend("bottomright",c("cad free","cad present"),col=c("green","red"),pch=1)
 
-zldl=df$ldladj-mean(df$ldladj)/sd(df$ldladj)
+zldl=(df$ldladj-mean(df$ldladj))/sd(df$ldladj)
 plot(density(zldl[df$cad==0]),col="green",main="Z_ldl by CAD",xlab="Z-Ldl")
-lines(density(df$ldladj[df$cad==1]),col="red")
+lines(density(zldl[df$cad==1]),col="red")
 legend("bottomright",c("cad free","cad present"),col=c("green","red"),pch=1)
 ```
