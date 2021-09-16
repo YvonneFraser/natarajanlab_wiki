@@ -303,7 +303,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -312,7 +312,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -324,7 +324,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-09-16
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>natarajanlab_wiki/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -340,12 +340,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreeb267cf260891cc321fd60154204bf057cda0f601targetblankb267cf2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/b267cf260891cc321fd60154204bf057cda0f601" target="_blank">b267cf2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree3b28b7d5af8c13792f01cb4eead3b426e30792d5targetblank3b28b7da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/3b28b7d5af8c13792f01cb4eead3b426e30792d5" target="_blank">3b28b7d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitreeb267cf260891cc321fd60154204bf057cda0f601targetblankb267cf2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcombroadinstitutenatarajanlabwikitree3b28b7d5af8c13792f01cb4eead3b426e30792d5targetblank3b28b7da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/b267cf260891cc321fd60154204bf057cda0f601" target="_blank">b267cf2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/broadinstitute/natarajanlab_wiki/tree/3b28b7d5af8c13792f01cb4eead3b426e30792d5" target="_blank">3b28b7d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,7 +444,6 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/metaplot_strat_torus.Rmd
-    Modified:   analysis/prs_equivalency.Rmd
 
 </code></pre>
 <p>
@@ -483,6 +482,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/3b28b7d5af8c13792f01cb4eead3b426e30792d5/analysis/prs_equivalency.Rmd" target="_blank">3b28b7d</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-16
+</td>
+<td>
+wflow_publish("prs_equivalency.rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/broadinstitute/natarajanlab_wiki/38def725cdf73437e38d71b8a60941ec7b5e1dfe/docs/prs_equivalency.html" target="_blank">38def72</a>
+</td>
+<td>
+Your Name
+</td>
+<td>
+2021-09-16
+</td>
+<td>
+updated conditional analysi
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -836,13 +869,7 @@ df$SCORESUM=-1*df$SCORESUM
 df$prs_quant=(df$SCORESUM-mean(df$SCORESUM))/sd(df$SCORESUM)
 df$sex=as.factor(ifelse(df$sex==&quot;Male&quot;,1,0))
 df$ldl_fact=as.factor(ifelse(df$ldladj&gt;190,1,0))
-saveRDS(df,&quot;~/Dropbox/df_ukb.rds&quot;)
-
-
-library(corrplot)
-corrplot(correlations, method=&quot;circle&quot;)
-correlations &lt;- cor(df[,c(6,7,9,14)])
-corrplot(correlations, method=&quot;circle&quot;)</code></pre>
+saveRDS(df,&quot;~/Dropbox/df_ukb.rds&quot;)</code></pre>
 <pre class="r"><code>df=readRDS(&quot;~/Dropbox/df_ukb.rds&quot;)
 head(df)</code></pre>
 <pre><code>        FID     IID PHENO     CNT    CNT2 SCORESUM age sex cad      PC1     PC2
@@ -859,6 +886,11 @@ head(df)</code></pre>
 2491905 -0.988080  0.750294 -2.36431 183.0240  0.8391757        0
 3250377 -1.625990 -1.226800 -5.34580 173.8206  1.0945967        0
 3961891 -2.734880  0.286941  1.47179 123.8979  0.1256188        0</code></pre>
+<pre class="r"><code>library(corrplot)</code></pre>
+<pre><code>corrplot 0.90 loaded</code></pre>
+<pre class="r"><code>correlations &lt;- cor(df[,c(&quot;ldladj&quot;,&quot;prs_quant&quot;,&quot;age&quot;,&quot;cad&quot;,&quot;PC1&quot;,&quot;PC2&quot;,&quot;PC3&quot;,&quot;PC4&quot;,&quot;PC5&quot;)])
+corrplot(correlations, method=&quot;circle&quot;)</code></pre>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Note that SCORESUM is actually the opposite direction (increasing score is protective) so we take the opposite. Let’s create a factor to call LDL greater or less than 190. Now, let’s fit some simple logistic regression. Here’s the Logistic with factor</p>
 <pre class="r"><code>glm.fit=glm(df$cad~df$prs_quant+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$age+df$sex+df$ldl_fact,family=binomial)
 exp(coef(glm.fit))</code></pre>
@@ -877,9 +909,10 @@ exp(coef(glm.prs))</code></pre>
 <pre class="r"><code>s=sample(seq(1,length(df$prs_quant)),100000)
 r=(rank(df$prs_quant)/length(df$prs_quant))
 
-plot(df$prs_quant[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main=&quot;Conditional OR CAD for PRS_quantile&quot;,xlab=&#39;PRSQuant&#39;,ylab=&quot;Conditional OR&quot;)
-abline(h=exp(coef(glm.ldl)[[2]]))
-abline(v=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]])</code></pre>
+plot(df$prs_quant[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main=&quot;Conditional OR CAD for PRS_quantile&quot;,xlab=&#39;PRS_Quantile&#39;,ylab=&quot;Conditional OR&quot;)
+abline(h=exp(coef(glm.ldl)[[2]]),col=&quot;red&quot;,pch=1)
+abline(v=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]],pch=2,col=&quot;green&quot;)
+legend(&quot;topleft&quot;,c(&quot;OR_LDL&gt;190&quot;,&quot;PRS_quantile&quot;),col=c(&quot;red&quot;,&quot;green&quot;),fill=c(&quot;red&quot;,&quot;green&quot;))</code></pre>
 <p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>q=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]]
 
@@ -888,118 +921,18 @@ t=which.min(df$prs_quant[w])
 r[w[t]]</code></pre>
 <pre><code>[1] 0.9488554</code></pre>
 <p>This means we’d need a PRS quantile of 1.6257187 which corresponds to the 0.9488554 percentile!</p>
-<pre><code>
-And here&#39;s as continuousl
-
-```r
-glm.cont=glm(as.factor(df$cad)~df$prs_quant+df$PC1+df$PC2+df$PC3+df$PC4+df$PC5+df$age+df$sex+df$ldladj,family=binomial)
-exp(coef(glm.cont))</code></pre>
-<pre><code> (Intercept) df$prs_quant       df$PC1       df$PC2       df$PC3       df$PC4 
-2.868494e-05 1.548106e+00 1.000609e+00 1.001456e+00 1.005680e+00 1.002693e+00 
-      df$PC5       df$age      df$sex1    df$ldladj 
-1.013404e+00 1.077539e+00 3.543448e+00 1.008221e+00 </code></pre>
-<p>We can also fit with only one term at a time:</p>
-<pre class="r"><code>pr.logit=glm(df$cad~df$prs_quant,family=binomial)
-
-exp(coef(pr.logit))</code></pre>
-<pre><code> (Intercept) df$prs_quant 
-  0.01679206   1.52297095 </code></pre>
-<pre class="r"><code>pr.logit.cond=glm(df$cad~df$SCORESUM,binomial(link = &quot;logit&quot;))
-exp(coef(pr.logit.cond))</code></pre>
-<pre><code> (Intercept)  df$SCORESUM 
-1.937781e+26 7.107499e+01 </code></pre>
-<p>We can examine the distribution of each feature by CAD:</p>
-<pre class="r"><code>barplot(quantile(df[df$cad==0,&quot;ldladj&quot;],probs=seq(0,1,by=0.1)),main=&quot;Adjuste_LDLbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/eeb3abd744b230be33e84a3c3bc6e8131aa3e9a1/docs/figure/prs_equivalency.Rmd/unnamed-chunk-6-1.png" target="_blank">eeb3abd</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-12
-</td>
-</tr>
-</tbody>
-</table>
 </div>
-</div>
-<pre class="r"><code>barplot(quantile(df[df$cad==1,&quot;ldladj&quot;],probs=seq(0,1,by=0.1)),main=&quot;Adjuste_LDLbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>barplot(quantile(df[df$cad==0,&quot;prs_quant&quot;],probs=seq(0,1,by=0.1)),main=&quot;Prs_quantbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)
-lines(quantile(df[df$cad==1,&quot;prs_quant&quot;],probs=seq(0,1,by=0.1)),main=&quot;PRS_quantbyquantile,CAD=0&quot;,xlab=&quot;quantile&quot;)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
-<p>##Predicting Risk</p>
+<div id="predicting-risk" class="section level2">
+<h2>Predicting Risk</h2>
 <p>First consider discriminant analysis: how does the distirbution of CAD and LDL score discriminate between CAD and CAD free folks:</p>
-<pre class="r"><code>par(mfrow=c(1,2))
-plot(density(r[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Quantile by CAD class&quot;,xlab=&quot;Quantile&quot;)
-lines(density(r[df$cad==0]),col=&quot;green&quot;)
-legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
+<pre class="r"><code># 
+# par(mfrow=c(1,2))
+# plot(density(r[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Quantile by CAD class&quot;,xlab=&quot;Quantile&quot;)
+# lines(density(r[df$cad==0]),col=&quot;green&quot;)
+# legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
 
-par(mfrow=c(1,3))</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/broadinstitute/natarajanlab_wiki/blob/eeb3abd744b230be33e84a3c3bc6e8131aa3e9a1/docs/figure/prs_equivalency.Rmd/unnamed-chunk-7-1.png" target="_blank">eeb3abd</a>
-</td>
-<td>
-Your Name
-</td>
-<td>
-2021-09-12
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>plot(density(df$prs_quant[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Z_Score Distribution by CAD class&quot;,xlab=&quot;Z_Score&quot;)
+par(mfrow=c(1,3))
+plot(density(df$prs_quant[df$cad==1]),col=&quot;red&quot;,main=&quot;PRS Z_Score Distribution by CAD class&quot;,xlab=&quot;Z_Score&quot;)
 lines(density(df$prs_quant[df$cad==0]),col=&quot;green&quot;)
 legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)
 
@@ -1011,7 +944,7 @@ zldl=df$ldladj-mean(df$ldladj)/sd(df$ldladj)
 plot(density(zldl[df$cad==0]),col=&quot;green&quot;,main=&quot;Z_ldl by CAD&quot;,xlab=&quot;Z-Ldl&quot;)
 lines(density(df$ldladj[df$cad==1]),col=&quot;red&quot;)
 legend(&quot;bottomright&quot;,c(&quot;cad free&quot;,&quot;cad present&quot;),col=c(&quot;green&quot;,&quot;red&quot;),pch=1)</code></pre>
-<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/prs_equivalency.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1034,6 +967,9 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] corrplot_0.90
+
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.7        whisker_0.4       knitr_1.33        magrittr_2.0.1   
  [5] workflowr_1.6.2   R6_2.5.0          rlang_0.4.11      fansi_0.5.0      
@@ -1041,7 +977,7 @@ loaded via a namespace (and not attached):
 [13] utf8_1.2.2        git2r_0.28.0      jquerylib_0.1.4   htmltools_0.5.1.1
 [17] ellipsis_0.3.2    rprojroot_2.0.2   yaml_2.2.1        digest_0.6.27    
 [21] tibble_3.1.3      lifecycle_1.0.0   crayon_1.4.1      later_1.2.0      
-[25] sass_0.4.0        vctrs_0.3.8       promises_1.2.0.1  fs_1.5.0         
+[25] sass_0.4.0        vctrs_0.3.8       fs_1.5.0          promises_1.2.0.1 
 [29] glue_1.4.2        evaluate_0.14     rmarkdown_2.9     stringi_1.7.3    
 [33] compiler_4.0.2    bslib_0.2.5.1     pillar_1.6.1      jsonlite_1.7.2   
 [37] httpuv_1.6.1      pkgconfig_2.0.3  </code></pre>
