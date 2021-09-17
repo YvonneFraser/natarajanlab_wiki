@@ -59,27 +59,29 @@ Note that SCORESUM is actually the opposite direction (increasing score is prote
 
 r=(rank(df$prs_quant)/length(df$prs_quant))
 
-glm.ldl=glm(df$cad~df$ldl_fact,family=binomial)
-exp(coef(glm.ldl))
+
 
 glm.prs=glm(df$cad~df$prs_quant,family=binomial)
 exp(coef(glm.prs))
 
 
+
+glm.ldl=glm(df$cad~df$ldl_fact,family=binomial)
+exp(coef(glm.ldl))
 q=coef(glm.ldl)[[2]]/coef(glm.prs)[[2]]
-
-
-
 
 w=which(df$prs_quant>q)
 t=which.min(df$prs_quant[w])
 perc=r[w[t]]
 
-s=sample(seq(1,nrow(df)),100000)
-r=(rank(df$prs_quant)/length(df$prs_quant))
+c=confint(glm.ldl)
 
+s=sample(seq(1,nrow(df)),100000)
 plot(r[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main="Conditional OR CAD for PRS_Percentile",xlab='PRS_Percentile',ylab="Conditional OR")
 abline(h=exp(coef(glm.ldl)[[2]]),col="red",pch=1)
+
+abline(h=exp(c[2,1]),col="red",lty=2)
+abline(h=exp(c[2,2]),col="red",lty=2)
 abline(v=perc,pch=2,col="green")
 legend("topleft",c("OR_LDL>190","PRS_percentile"),col=c("red","green"),fill=c("red","green"))
 ```
@@ -93,6 +95,7 @@ glm.dm=glm(df$cad~+df$dm,family=binomial)
 exp(coef(glm.dm))
 qd=coef(glm.dm)[[2]]/coef(glm.prs)[[2]]
 
+c=confint(glm.dm)
 w=which(df$prs_quant>qd)
 t=which.min(df$prs_quant[w])
 perc=r[w[t]]
@@ -101,7 +104,9 @@ s=sample(seq(1,nrow(df)),100000)
 r=(rank(df$prs_quant)/length(df$prs_quant))
 
 plot(r[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main="Conditional OR CAD for PRS_Percentile",xlab='PRS_Percentile',ylab="Conditional OR")
-abline(h=exp(coef(glm.ldl)[[2]]),col="red",pch=1)
+abline(h=exp(coef(glm.dm)[[2]]),col="red",pch=1)
+abline(h=exp(c[2,1]),col="red",lty=2)
+abline(h=exp(c[2,2]),col="red",lty=2)
 abline(v=perc,pch=2,col="green")
 legend("topleft",c("OR_DM","PRS_percentile"),col=c("red","green"),fill=c("red","green"))
 ```
@@ -116,7 +121,7 @@ This means we'd need a PRS quantile of `r coef(glm.dm)[[2]]/coef(glm.prs)[[2]]` 
 glm.htn=glm(df$cad~as.factor(ifelse(df$htn>130,1,0))+df$age,family=binomial)
 exp(coef(glm.htn))
 qh=coef(glm.htn)[[2]]/coef(glm.prs)[[2]]
-
+c=confint(glm.htn)
 
 w=which(df$prs_quant>qh)
 t=which.min(df$prs_quant[w])
@@ -126,7 +131,11 @@ s=sample(seq(1,nrow(df)),100000)
 r=(rank(df$prs_quant)/length(df$prs_quant))
 
 plot(r[s],exp(df$prs_quant[s]*coef(glm.prs)[[2]]),main="Conditional OR CAD for PRS_Percentile",xlab='PRS_Percentile',ylab="Conditional OR")
-abline(h=exp(coef(glm.ldl)[[2]]),col="red",pch=1)
+
+abline(h=exp(coef(glm.htn)[[2]]),col="red",pch=1)
+abline(h=exp(c[2,1]),col="red",lty=2)
+abline(h=exp(c[2,2]),col="red",lty=2)
+       
 abline(v=perc,pch=2,col="green")
 legend("topleft",c("OR_HTN>130","PRS_percentile"),col=c("red","green"),fill=c("red","green"))
 
